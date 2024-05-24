@@ -24,6 +24,7 @@ variable "catalogue_id" {
 variable "location_uri" {
   description = "The location of the db"
   type        = string  
+  default     = "null" 
 }
 
 variable "parameters" {
@@ -44,14 +45,17 @@ variable "target_database" {
 variable "database_name" {
   description = "Glue db for results updation"
   type        = string
+  default     = "null" 
 }
 
 variable "glue_crawler_description" {
   description = "Description of the crawler"
   type        = string
+  default     = "Tokyo Glue Crawler"
 }
 
 variable "role" {
   description = "IAM role for the crawler"
-  type        = string    
+  type        = string   
+  default     = "null" 
 }
