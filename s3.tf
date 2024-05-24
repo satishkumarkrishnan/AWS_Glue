@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "bucket1" {
+resource "aws_s3_bucket" "rawdatabucket" {
   bucket = "raw-data-bucket"  
 # Prevent accidental deletion of this S3 bucket
   lifecycle {
@@ -6,6 +6,6 @@ resource "aws_s3_bucket" "bucket1" {
   }
 }
 
-resource "aws_s3_bucket" "bucket2" {
+resource "aws_s3_bucket" "extensionbucket" {
   bucket = "extension-data-bucket"
 }
