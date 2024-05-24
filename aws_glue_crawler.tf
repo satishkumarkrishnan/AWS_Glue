@@ -13,6 +13,6 @@ resource "aws_glue_crawler" "example" {
   role          = aws_iam_role.gluerole.arn
 
   s3_target {
-    path = "s3://${aws_s3_bucket.example.bucket}"
+    path = "s3://${aws_s3_bucket.bucket2}"
   }  
 }
