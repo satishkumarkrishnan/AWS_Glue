@@ -7,7 +7,7 @@ terraform {
     }
   }
 }
-
+#Adding a region
 provider "aws" {
   region = var.region
 }
