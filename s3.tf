@@ -17,6 +17,10 @@ resource "aws_s3_bucket" "example1" {
   lifecycle {
     prevent_destroy = false
   }
+   tags = {
+    Name        = "rawdata-bucket"
+    Environment = "Dev"
+  }
 }
 
 # Enable versioning so you can see the full revision history of your
