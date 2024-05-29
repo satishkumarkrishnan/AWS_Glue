@@ -39,3 +39,43 @@ resource "aws_iam_role" "gluerole" {
     ]
   })
 }
+
+// EVENTBRIDGE IAM ROLE POLICY
+resource "aws_iam_policy" "eventbridge_invoke_step_function_policy" {
+  name = "eventbridge_invoke_step_function_2705"
+  policy = jsonencode(
+{
+    "Version": "2012-10-17",
+    "Statement": [
+	{
+         "Effect": "Allow",
+            "Action": [
+                "*"
+            ],
+            "Resource": "*"
+     }  
+    ]
+  })
+}
+
+resource "aws_iam_role" "eventbridge_invoke_step_function_role" {
+  name = "eventbridge_invoke_step_function_role"
+  assume_role_policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "states.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy_attachment" "attach_stepfunction_policy_to_eventbridge" {
+  name = "attach_stepfunction_policy_to_eventbridge"
+  roles = [aws_iam_role.eventbridge_invoke_step_function_role.name]
+  policy_arn = aws_iam_policy.eventbridge_invoke_step_function_policy.arn
+}
