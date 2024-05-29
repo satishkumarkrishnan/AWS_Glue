@@ -42,7 +42,7 @@ resource "aws_iam_role" "gluerole" {
 
 // EVENTBRIDGE IAM ROLE POLICY
 resource "aws_iam_policy" "eventbridge_invoke_step_function_policy" {
-  name = "eventbridge_invoke_step_function_2705"
+  name = "tokyo_eventbridge_invoke_step_function"
   policy = jsonencode(
 {
     "Version": "2012-10-17",
@@ -79,3 +79,4 @@ resource "aws_iam_policy_attachment" "attach_stepfunction_policy_to_eventbridge"
   roles = [aws_iam_role.eventbridge_invoke_step_function_role.name]
   policy_arn = aws_iam_policy.eventbridge_invoke_step_function_policy.arn
 }
+
