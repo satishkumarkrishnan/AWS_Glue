@@ -17,10 +17,10 @@ resource "aws_cloudwatch_event_rule" "event_from_s3" {
 resource "aws_cloudwatch_log_group" "tokyo_log_group" {
   name = "DDSL"
 
-  /*tags = {
+  tags = {
     Environment = "Dev"
     Application = "POC"
-  }*/
+  }
 }
 
 #Resource creation for AWS Cloud Watch target 
