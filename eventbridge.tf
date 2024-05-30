@@ -19,7 +19,7 @@ resource "aws_cloudwatch_event_rule" "event_from_s3" {
     "eventSource": ["s3.amazonaws.com"],
     "eventName": ["PutObject"],
     "requestParameters": {
-      "bucketName": ["${aws_s3_bucket.source_example1.id}"]
+      "bucketName": ["${aws_s3_bucket.example1.id}"]
     }
   }
 })
