@@ -83,13 +83,3 @@ resource "aws_kms_alias" "kms-alias-logs" {
   name          = "alias/logs"
   target_key_id = aws_kms_key.cloudtrail-logs-kms-key.id
 }
-
-resource "aws_s3_bucket_notification" "bucket_notification" {
-        bucket = aws_s3_bucket.example1.id
-    
-        topic {
-          topic_arn     = aws_sns_topic.topic.arn
-          events        = ["s3:ObjectCreated:*"]
-          filter_suffix = ".log"
-        }
-      }
