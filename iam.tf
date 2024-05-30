@@ -17,7 +17,12 @@ resource "aws_iam_policy" "gluepolicy" {
                 "logs:CreateLogGroup",
                 "logs:CreateLogStream",
                 "logs:PutLogEvents",
-                "logs:DescribeLogGroups"
+                "logs:DescribeLogGroups",
+                "logs:CreateLogGroup",
+                "logs:DescribeLogStreams",
+                "logs:FilterLogEvents",
+                "logs:DeleteRequestLogGroup",
+                "logs:UpdateRequestLogGroup"
             ],
             "Resource": "*"
         }
