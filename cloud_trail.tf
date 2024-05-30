@@ -17,7 +17,7 @@
 resource "aws_cloudtrail" "TRAIL" {
   name                       = "tokyo_cloud_trail"
   cloud_watch_logs_role_arn  = aws_iam_role.cloudtrail-cloudwatch-events-role.arn
-  cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.loggroup.arn}:*"
+  #cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.loggroup.arn}:*"
   enable_log_file_validation = "false"
   enable_logging             = "true"
   is_multi_region_trail      = "false"
