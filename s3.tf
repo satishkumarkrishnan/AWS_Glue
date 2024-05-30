@@ -75,7 +75,7 @@ resource "aws_s3_bucket_policy" "logs" {
 resource "aws_kms_key" "cloudtrail-logs-kms-key" {
   key_usage           = "ENCRYPT_DECRYPT"
   enable_key_rotation = false
-  policy              = templatefile("${path.module}/cloudtrail-logs-kms-key.json",590183849298)
+  policy              = templatefile("${path.module}/cloudtrail-logs-kms-key.json")
 }
 
 resource "aws_kms_alias" "kms-alias-logs" {
