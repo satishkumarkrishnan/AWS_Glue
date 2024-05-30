@@ -1,8 +1,6 @@
 resource "aws_cloudwatch_event_rule" "event_from_s3" {
   name = "s3_put_object_event"
   description = "Capture s3 object creation event"
-  
-
   event_pattern = jsonencode(
     {
         "source": ["aws.s3"],
@@ -14,4 +12,18 @@ resource "aws_cloudwatch_event_rule" "event_from_s3" {
         }
     }
   )
+}
+#Resource creation for AWS Cloud Watch log group
+resource "aws_cloudwatch_log_group" "tokyo_log_group" {
+  name = "DDSL"
+
+  tags = {
+    Environment = "Dev"
+    Application = "POC"
+  }
+}
+#Resource creation for AWS Cloud Watch target 
+resource "aws_cloudwatch_event_target" "example" {
+  rule = aws_cloudwatch_event_rule.event_from_s3.name
+  arn  = aws_cloudwatch_log_group.tokyo_log_group.arn
 }
