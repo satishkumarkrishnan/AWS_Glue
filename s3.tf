@@ -68,6 +68,6 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
 }
 
 resource "aws_s3_bucket_policy" "logs" {
-  bucket     = aws_s3_bucket.BUCKET_NAME.id
+  bucket     = aws_s3_bucket.example1.id
   policy     = file("${path.module}/cloudtrail-s3-policy.json")
 }
