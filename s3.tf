@@ -17,11 +17,6 @@ resource "aws_sns_topic" "topic" {
 }
 POLICY
 }
-#S3 Bucket to store Cloud Trail events
-resource "aws_s3_bucket" "tokyo_cloud_trail" {
-  bucket = "tokyo-cloud-trail"
-}
-
 # S3 bucket to store App
 resource "aws_s3_bucket" "example1" {
   bucket = "tokyo-rawdata-bucket"

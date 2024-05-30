@@ -1,6 +1,6 @@
 resource "aws_cloudtrail" "example" {
   name = "tokyo_cloudtrail"
-  s3_bucket_name = aws_s3_bucket.tokyo_cloud_trail.id
+  s3_bucket_name = aws_s3_bucket.example1.id
 
   event_selector {
     read_write_type           = "All"
