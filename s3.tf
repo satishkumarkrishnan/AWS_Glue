@@ -67,3 +67,7 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
   restrict_public_buckets = true
 }
 
+resource "aws_s3_bucket_policy" "logs" {
+  bucket     = aws_s3_bucket.BUCKET_NAME.id
+  policy     = file("${path.module}/cloudtrail-s3-policy.json")
+}
