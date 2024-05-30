@@ -1,5 +1,5 @@
 resource "aws_cloudtrail" "example" {
-  name = tokyo_cloudtrail_log
+  name = "tokyo_cloudtrail"
   s3_bucket_name = aws_s3_bucket.tokyo_cloud_trail.id
 
   event_selector {
