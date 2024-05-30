@@ -69,13 +69,13 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
 
 resource "aws_s3_bucket_policy" "logs" {
   bucket     = aws_s3_bucket.example1.id
-  policy     = file("${path.module}/cloudtrail-s3-policy.json" ,{ account_id = 590183849298 })
+  policy     = file("${path.module}/cloudtrail-s3-policy.json" ,{ account_id = data.aws_caller_identity.current.account_id })
 }
 
 resource "aws_kms_key" "cloudtrail-logs-kms-key" {
   key_usage           = "ENCRYPT_DECRYPT"
   enable_key_rotation = false
-  policy              = templatefile("${path.module}/cloudtrail-logs-kms-key.json")
+  policy              = templatefile("${path.module}/cloudtrail-logs-kms-key.json",{ account_id = data.aws_caller_identity.current.account_id })
 }
 
 resource "aws_kms_alias" "kms-alias-logs" {
