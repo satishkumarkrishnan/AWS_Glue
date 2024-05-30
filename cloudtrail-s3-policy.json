@@ -11,7 +11,7 @@
                 ]
             },
             "Action": "s3:GetBucketAcl",
-            "Resource": "arn:aws:s3:::example1"
+            "Resource": "arn:aws:s3:::tokyo-rawdata-bucket"
         },
         { 
             "Sid": "AWS cloudtrail global",
@@ -23,7 +23,7 @@
                 ]
             },
             "Action": "s3:*",
-            "Resource": "arn:aws:s3:::example1/*"
+            "Resource": "arn:aws:s3:::tokyo-rawdata-bucket/*"
         },
         { 
             "Sid": "Allow Cloudtrail to write in S3 bucket",
@@ -35,7 +35,7 @@
                 ]
             },
             "Action": "s3:PutObject",
-            "Resource": "arn:aws:s3:::example1/*",
+            "Resource": "arn:aws:s3:::tokyo-rawdata-bucket/*",
             "Condition": {
                 "StringEquals": {
                     "s3:x-amz-acl": "bucket-owner-full-control",
