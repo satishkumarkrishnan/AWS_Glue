@@ -33,11 +33,11 @@ resource "aws_s3_bucket" "example1" {
 resource "aws_s3_bucket_notification" "bucket_notification" {
   bucket      = aws_s3_bucket.example1.id
   eventbridge = true
-  topic {
-    topic_arn     = aws_sns_topic.topic.arn
+  /*topic {
+    topic_arn     = aws_cloudtrail.trail.arn
     events        = ["s3:ObjectCreated:*"]    
     filter_suffix = "*.log"
-  }
+  }*/
 }
 
 # Enable versioning so you can see the full revision history of your
