@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "assume-policy" {
+/*data "aws_iam_policy_document" "assume-policy" {
   statement {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
@@ -8,7 +8,7 @@ data "aws_iam_policy_document" "assume-policy" {
       identifiers = ["cloudtrail.amazonaws.com"]
     }
   }
-}
+}*/
 
 data "aws_caller_identity" "current" {}
 
@@ -34,7 +34,17 @@ output "caller_region" {
 
 data "aws_iam_policy_document" "example" {
   statement {
-    sid    = "AWSCloudTrailAclCheck"
+    effect  = "Allow"
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["cloudtrail.amazonaws.com"]
+    }
+  }
+  statement {
+    
+    sid    = "AWSCloudTrailAclCheck"      
     effect = "Allow"
 
     principals {
