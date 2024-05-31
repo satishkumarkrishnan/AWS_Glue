@@ -1,4 +1,4 @@
-resource "aws_cloudtrail" "example" {
+/*resource "aws_cloudtrail" "example" {
   name = "tokyo_cloud_trail"
   s3_bucket_name = aws_s3_bucket.example1.id
 
@@ -11,10 +11,10 @@ resource "aws_cloudtrail" "example" {
       values = ["arn:aws:s3:::"]
     }
   }
-}
+}*/
 
 
-/*resource "aws_cloudtrail" "trail" {
+resource "aws_cloudtrail" "trail" {
   name                       = "tokyo_cloud_trail"
   cloud_watch_logs_role_arn  = aws_iam_role.cloudtrail-cloudwatch-events-role.arn
   cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.tokyo_log_group.arn}:*"
@@ -32,4 +32,4 @@ resource "aws_cloudtrail" "example" {
       values = ["arn:aws:s3:::"]
     }
   }
-}*/
+}
