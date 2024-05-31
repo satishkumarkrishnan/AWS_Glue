@@ -17,7 +17,7 @@
 resource "aws_cloudtrail" "trail" {
   name                       = "tokyo_cloudtrail"
   cloud_watch_logs_role_arn  = aws_iam_role.cloudtrail-cloudwatch-events-role.arn
-  cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.tokyo_log_group.arn}:*"  
+  cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudwatch_log_group.arn}:*"  
   enable_log_file_validation = "false"
   enable_logging             = "true"
   is_multi_region_trail      = "false"
@@ -33,8 +33,15 @@ resource "aws_cloudtrail" "trail" {
     }
   }
 }
+resource "aws_cloudwatch_log_group" "cloudwatch_log_group" {
+  name = "tokyo_cloudwatch_log"
+  tags = {
+    Name = "Cloudwatch for backuping CloudTrail"
+    
+  }
+}
 
 resource "aws_cloudwatch_log_stream" "test" {
   name           = "${data.aws_caller_identity.current.account_id}_CloudTrail_${data.aws_region.current.name}"
-  log_group_name = aws_cloudwatch_log_group.tokyo_log_group.name
+  log_group_name = aws_cloudwatch_log_group.cloudwatch_log_group.name
 }
