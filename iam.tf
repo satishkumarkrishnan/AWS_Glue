@@ -81,5 +81,5 @@ resource "aws_iam_policy_attachment" "attach_stepfunction_policy_to_eventbridge"
 resource "aws_iam_role" "cloudtrail-cloudwatch-events-role" {
   name               = "cloudtrail-cloudwatch-events-role"
   path               = "/"
-  assume_role_policy = data.aws_iam_policy_document.assume-policy.json
+  assume_role_policy = data.aws_iam_policy_document.example.json
 }
