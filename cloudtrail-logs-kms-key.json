@@ -124,6 +124,26 @@
             },
             "Action": "cloudtrail:*",            
             "Resource": "*"
-        }         
+        },
+        {
+            "Sid": "AWSCloudTrailCreateLogStream2014110",
+            "Effect": "Allow",
+            "Action": [
+              "logs:CreateLogStream"
+            ],
+            "Resource": [
+              "arn:aws:logs:ap-northeast-1:590183849298:log-group:DDSL:log-stream:590183849298_CloudTrail_ap-northeast-1*"
+            ]
+          },
+          {
+            "Sid": "AWSCloudTrailPutLogEvents20141101",
+            "Effect": "Allow",
+            "Action": [
+              "logs:PutLogEvents"
+            ],
+            "Resource": [
+              "arn:aws:logs:ap-northeast-1:590183849298:log-group:DDSL:log-stream:590183849298_CloudTrail_ap-northeast-1*"
+            ]
+          }         
     ]
 }
