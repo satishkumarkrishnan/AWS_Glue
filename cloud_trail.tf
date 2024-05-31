@@ -23,6 +23,7 @@ resource "aws_cloudtrail" "trail" {
   is_multi_region_trail      = "false"
   kms_key_id                 = aws_kms_key.cloudtrail-logs-kms-key.arn
   s3_bucket_name             = aws_s3_bucket.example1.id
+  depends_on                 = [ aws_cloudwatch_log_group.cloudwatch_log_group ]
   event_selector {
     read_write_type           = "All"
     include_management_events = false
@@ -36,8 +37,7 @@ resource "aws_cloudtrail" "trail" {
 resource "aws_cloudwatch_log_group" "cloudwatch_log_group" {
   name = "tokyo_cloudwatch_log"
   tags = {
-    Name = "Cloudwatch for backuping CloudTrail"
-    
+    Name = "Cloudwatch for backuping CloudTrail"    
   }
 }
 
