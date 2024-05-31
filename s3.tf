@@ -74,13 +74,13 @@ resource "aws_s3_bucket_policy" "logs" {
   policy     = data.aws_iam_policy_document.example1.json
 }
 
-resource "aws_kms_key" "cloudtrail-logs-kms-key" {
+resource "aws_kms_key" "cloudtrail_logs_kms_key" {
   key_usage           = "ENCRYPT_DECRYPT"
   enable_key_rotation = false
-  policy              = templatefile("${path.module}/cloudtrail-logs-kms-key.json",{ account_id = data.aws_caller_identity.current.account_id })
+  policy              = templatefile("${path.module}/cloudtrail_logs_kms_key.json",{ account_id = data.aws_caller_identity.current.account_id })
 }
 
-resource "aws_kms_alias" "kms-alias-logs" {
+resource "aws_kms_alias" "kms_alias_logs" {
   name          = "alias/logs"
-  target_key_id = aws_kms_key.cloudtrail-logs-kms-key.id
+  target_key_id = aws_kms_key.cloudtrail_logs_kms_key.id
 }
