@@ -16,8 +16,8 @@
 
 resource "aws_cloudtrail" "trail" {
   name                       = "tokyo_cloudtrail"
-  cloud_watch_logs_role_arn  = aws_iam_role.cloudtrail-cloudwatch-events-role.arn
-  #cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudwatch_log_group.arn}:*"  
+  #cloud_watch_logs_role_arn  = aws_iam_role.cloudtrail-cloudwatch-events-role.arn
+  #cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudwatch_log_group.arn}:*" 
   enable_log_file_validation = "false"
   enable_logging             = "true"
   is_multi_region_trail      = "false"
@@ -25,7 +25,7 @@ resource "aws_cloudtrail" "trail" {
   s3_bucket_name             = aws_s3_bucket.example1.id
   depends_on                 = [aws_s3_bucket_policy.logs]  
   event_selector {
-    read_write_type           = "All"
+    read_write_type           = "WriteOnly"
     include_management_events = false
 
     data_resource {
