@@ -43,7 +43,7 @@ data "aws_iam_policy_document" "example" {
     }
 
     actions   = ["s3:GetBucketAcl"]
-    resources = [aws_s3_bucket.example.arn]
+    resources = [aws_s3_bucket.example1.arn]
     condition {
       test     = "StringEquals"
       variable = "aws:SourceArn"
@@ -61,7 +61,7 @@ data "aws_iam_policy_document" "example" {
     }
 
     actions   = ["s3:PutObject"]
-    resources = ["${aws_s3_bucket.example.arn}/prefix/AWSLogs/${data.aws_caller_identity.current.account_id}/*"]
+    resources = ["${aws_s3_bucket.example1.arn}/prefix/AWSLogs/${data.aws_caller_identity.current.account_id}/*"]
 
     condition {
       test     = "StringEquals"
