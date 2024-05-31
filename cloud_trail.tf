@@ -30,7 +30,7 @@ resource "aws_cloudtrail" "trail" {
 
     data_resource {
       type   = "AWS::S3::Object"
-      values = ["arn:aws:s3:::"]
+      values = ["arn:aws:s3:::${aws_s3_bucket.example1.id}/"]
     }
   }
 }
