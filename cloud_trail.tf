@@ -21,7 +21,7 @@ resource "aws_cloudtrail" "trail" {
   enable_log_file_validation = "false"
   enable_logging             = "true"
   is_multi_region_trail      = "false"
-  kms_key_id                 = aws_kms_key.cloudtrail-logs-kms-key.arn
+ #kms_key_id                 = aws_kms_key.cloudtrail-logs-kms-key.arn
   s3_bucket_name             = aws_s3_bucket.example1.id
   depends_on                 = [aws_s3_bucket_policy.logs]  
   event_selector {
