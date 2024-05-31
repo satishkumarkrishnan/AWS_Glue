@@ -31,7 +31,7 @@ data "aws_partition" "current" {}
 output "caller_region" {
   value = data.aws_region.current.name
 }
-
+#To assume Role 
 data "aws_iam_policy_document" "example" {
   statement {
     effect  = "Allow"
@@ -42,6 +42,9 @@ data "aws_iam_policy_document" "example" {
       identifiers = ["cloudtrail.amazonaws.com"]
     }
   }
+}
+#To attach policy to the role
+data "aws_iam_policy_document" "example1" {
   statement {
     
     sid    = "AWSCloudTrailAclCheck"      
