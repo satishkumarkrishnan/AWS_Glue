@@ -23,7 +23,7 @@ resource "aws_cloudtrail" "trail" {
   is_multi_region_trail      = "false"
   kms_key_id                 = aws_kms_key.cloudtrail-logs-kms-key.arn
   s3_bucket_name             = aws_s3_bucket.example1.id
-  depends_on                 = [ aws_cloudwatch_log_group.cloudwatch_log_group ]
+  depends_on                 = [aws_s3_bucket_policy.logs]  
   event_selector {
     read_write_type           = "All"
     include_management_events = false
