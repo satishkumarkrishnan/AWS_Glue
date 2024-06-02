@@ -31,7 +31,7 @@ data "aws_partition" "current" {}
 output "caller_region" {
   value = data.aws_region.current.name
 }
-/*#To assume Role 
+#To assume Role 
 data "aws_iam_policy_document" "example" {
   statement {
     effect  = "Allow"
@@ -86,4 +86,4 @@ data "aws_iam_policy_document" "example1" {
       values   = ["arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:trail/example"]
     }
   }
-}*/
+}

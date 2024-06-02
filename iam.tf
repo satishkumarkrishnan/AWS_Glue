@@ -99,7 +99,7 @@ EOF
 
 resource "aws_iam_role_policy" "aws_iam_role_policy_cloudTrail_cloudWatch" {
   name = "cloudTrail-cloudWatch-policy"
-  role = aws_iam_role.cloudtrail_cloudwatch_events_role.id
+  role = aws_iam_role.cloud_trail.id
 
   policy = <<EOF
 {
@@ -122,7 +122,7 @@ resource "aws_iam_role_policy" "aws_iam_role_policy_cloudTrail_cloudWatch" {
                 "logs:PutLogEvents"
             ],
             "Resource": [
-                "${aws_cloudwatch_log_group.cloudtrail_log_group.arn}:*"
+                "${aws_cloudwatch_log_group.cloudtrail_log_group.}:*"
             ]
         }
     ]

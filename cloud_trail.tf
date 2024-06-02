@@ -26,13 +26,13 @@ resource "aws_cloudtrail" "trail" {
   cloud_watch_logs_role_arn  = aws_iam_role.cloudtrail_cloudwatch_events_role.arn
   #cloud_watch_logs_group_arn = aws_cloudwatch_log_group.cloudtrail_log_group.arn
   #cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudwatch_log_group.arn}:*" 
-  cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudtrail_log_group.arn}:*" # CloudTrail requires the Log Stream wildcard
-  enable_log_file_validation = "false"
+  cloud_watch_logs_group_arn = aws_cloudwatch_log_group.cloudtrail_log_group.arn # CloudTrail requires the Log Stream wildcard
+  enable_log_file_validation = "true"
   enable_logging             = "true"
-  is_multi_region_trail      = "false"
+  is_multi_region_trail      = "true"
  #kms_key_id                 = aws_kms_key.cloudtrail_logs_kms_key.arn
-  s3_bucket_name             = aws_s3_bucket.example1.id
-  include_global_service_events = false 
+  s3_bucket_name             = aws_s3_bucket.example1.bucket
+  include_global_service_events = true
   event_selector {
     read_write_type           = "All"
     include_management_events = true
