@@ -69,7 +69,7 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
 
 #To create a S3 bucket with policy
 resource "aws_s3_bucket_policy" "cloudtrail_bucket_policy" {
-  bucket = aws_s3_bucket.example.id
+  bucket = aws_s3_bucket.example1.id
 
   policy = jsonencode({
     Version = "2012-10-17",
