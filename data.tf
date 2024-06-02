@@ -31,7 +31,7 @@ data "aws_partition" "current" {}
 output "caller_region" {
   value = data.aws_region.current.name
 }
-#To assume Role 
+/*#To assume Role 
 data "aws_iam_policy_document" "example" {
   statement {
     effect  = "Allow"
@@ -46,8 +46,7 @@ data "aws_iam_policy_document" "example" {
 #To attach policy to the role
 data "aws_iam_policy_document" "example1" {
   statement {
-    
-    sid    = "AWSCloudTrailAclCheck"      
+    sid    = "AWSCloudTrailAclCheck"
     effect = "Allow"
 
     principals {
@@ -55,16 +54,13 @@ data "aws_iam_policy_document" "example1" {
       identifiers = ["cloudtrail.amazonaws.com"]
     }
 
-    actions   = ["s3:GetBucketAcl",]
-   # resources = [aws_s3_bucket.example1.arn]
-    resources = [
-    "arn:aws:s3:::${aws_s3_bucket.example1.id}",
-    ]
-    /*condition {
+    actions   = ["s3:GetBucketAcl"]
+    resources = [aws_s3_bucket.example1.arn]
+    condition {
       test     = "StringEquals"
       variable = "aws:SourceArn"
       values   = ["arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:trail/example"]
-    }*/
+    }
   }
 
   statement {
@@ -76,21 +72,18 @@ data "aws_iam_policy_document" "example1" {
       identifiers = ["cloudtrail.amazonaws.com"]
     }
 
-    actions   = ["s3:PutObject",]
-    resources = [
-    "arn:aws:s3:::${aws_s3_bucket.example1.id}/*",
-    ]
-    #resources = ["${aws_s3_bucket.example1.arn}/prefix/AWSLogs/${data.aws_caller_identity.current.account_id}/*"]
+    actions   = ["s3:PutObject"]
+    resources = ["${aws_s3_bucket.example1.arn}/prefix/AWSLogs/${data.aws_caller_identity.current.account_id}/*"]
 
     condition {
       test     = "StringEquals"
       variable = "s3:x-amz-acl"
-      values   = ["bucket-owner-full-control",]
+      values   = ["bucket-owner-full-control"]
     }
-    /*condition {
+    condition {
       test     = "StringEquals"
       variable = "aws:SourceArn"
       values   = ["arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:trail/example"]
-    }*/
+    }
   }
-}
+}*/
