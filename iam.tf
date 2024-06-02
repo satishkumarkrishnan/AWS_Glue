@@ -122,7 +122,7 @@ resource "aws_iam_role_policy" "aws_iam_role_policy_cloudTrail_cloudWatch" {
                 "logs:PutLogEvents"
             ],
             "Resource": [
-                "${aws_cloudwatch_log_group.cloudtrail_log_group.}:*"
+                "${aws_cloudwatch_log_group.cloudtrail_log_group.arn}:*"
             ]
         }
     ]
