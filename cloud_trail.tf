@@ -13,8 +13,8 @@
   }
 }*/
 #Resource to create Cloudwatch log group
-resource "aws_cloudwatch_log_group" "cloudwatch_log_group" {
-  name = "tokyo_cloudwatch_log"
+resource "aws_cloudwatch_log_group" "cloudtrail_log_group" {
+  name = "tokyo_cloudtrail_log"
   tags = {
     Name = "Cloudwatch for backuping CloudTrail"    
   }
@@ -22,14 +22,16 @@ resource "aws_cloudwatch_log_group" "cloudwatch_log_group" {
 # Resource to create Cloudtrail
 resource "aws_cloudtrail" "trail" {
   name                       = "tokyo_cloudtrail"
+  depends_on                 = [aws_s3_bucket_policy.logs] 
   #cloud_watch_logs_role_arn  = aws_iam_role.cloudtrail_cloudwatch_events_role.arn
   #cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudwatch_log_group.arn}:*" 
+  cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudtrail_log_group.arn}:*" # CloudTrail requires the Log Stream wildcard
   enable_log_file_validation = "false"
   enable_logging             = "true"
   is_multi_region_trail      = "false"
  #kms_key_id                 = aws_kms_key.cloudtrail_logs_kms_key.arn
   s3_bucket_name             = aws_s3_bucket.example1.id
-  depends_on                 = [aws_s3_bucket_policy.logs]  
+   
   event_selector {
     read_write_type           = "WriteOnly"
     include_management_events = false
@@ -40,9 +42,3 @@ resource "aws_cloudtrail" "trail" {
     }
   }
 }
-
-
-/*resource "aws_cloudwatch_log_stream" "test" {
-  name           = "${data.aws_caller_identity.current.account_id}_CloudTrail_${data.aws_region.current.name}"
-  log_group_name = aws_cloudwatch_log_group.cloudwatch_log_group.name
-}*/
