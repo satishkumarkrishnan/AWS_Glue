@@ -67,13 +67,40 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
   restrict_public_buckets = true
 }
 
+#To create a S3 bucket with policy
+resource "aws_s3_bucket_policy" "cloudtrail_bucket_policy" {
+  bucket = aws_s3_bucket.example.id
 
-resource "aws_s3_bucket_policy" "logs" {
-  bucket     = aws_s3_bucket.example1.id
-  #policy     = file("${path.module}/cloudtrail-s3-policy.json")
-  #policy     = aws_iam_role_policy.aws_iam_role_policy_cloudTrail_cloudWatch.name
-  policy     = data.aws_iam_policy_document.example1.json
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Sid       = "AWSCloudTrailAclCheck",
+        Effect    = "Allow",
+        Principal = {
+          Service = "cloudtrail.amazonaws.com"
+        },
+        Action    = "s3:GetBucketAcl",
+        Resource  = "arn:aws:s3:::example1"
+      },
+      {
+        Sid       = "AWSCloudTrailWrite",
+        Effect    = "Allow",
+        Principal = {
+          Service = "cloudtrail.amazonaws.com"
+        },
+        Action    = "s3:PutObject",
+        Resource  = "arn:aws:s3:::example1/AWSLogs/*",
+        Condition = {
+          StringEquals = {
+            "s3:x-amz-acl" = "bucket-owner-full-control"
+          }
+        }
+      }
+    ]
+  })
 }
+
 
 /*resource "aws_kms_key" "cloudtrail_logs_kms_key" {
   key_usage           = "ENCRYPT_DECRYPT"
