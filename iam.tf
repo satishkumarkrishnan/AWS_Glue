@@ -99,7 +99,7 @@ EOF
 
 resource "aws_iam_role_policy" "aws_iam_role_policy_cloudTrail_cloudWatch" {
   name = "cloudTrail-cloudWatch-policy"
-  role = aws_iam_role.cloud_trail.id
+  role = aws_iam_role.cloudtrail_cloudwatch_events_role.id
 
   policy = <<EOF
 {
