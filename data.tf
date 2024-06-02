@@ -1,15 +1,3 @@
-/*data "aws_iam_policy_document" "assume-policy" {
-  statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole"]
-
-    principals {
-      type        = "Service"
-      identifiers = ["cloudtrail.amazonaws.com"]
-    }
-  }
-}*/
-
 data "aws_caller_identity" "current" {}
 
 output "account_id" {

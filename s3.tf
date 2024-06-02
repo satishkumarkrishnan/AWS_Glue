@@ -73,8 +73,6 @@ resource "aws_s3_bucket_policy" "cloudtrail_bucket_policy" {
   policy = data.aws_iam_policy_document.example1.json
 }
 
-  
-
 /*resource "aws_kms_key" "cloudtrail_logs_kms_key" {
   key_usage           = "ENCRYPT_DECRYPT"
   enable_key_rotation = false
