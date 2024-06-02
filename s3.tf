@@ -71,7 +71,7 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
 resource "aws_s3_bucket_policy" "logs" {
   bucket     = aws_s3_bucket.example1.id
   #policy     = file("${path.module}/cloudtrail-s3-policy.json")
-  policy     = aws_iam_role_policy.aws_iam_role_policy_cloudTrail_cloudWatch
+  policy     = aws_iam_role_policy.aws_iam_role_policy_cloudTrail_cloudWatch.policy
 }
 
 /*resource "aws_kms_key" "cloudtrail_logs_kms_key" {
