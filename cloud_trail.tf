@@ -22,11 +22,11 @@ resource "aws_cloudwatch_log_group" "cloudtrail_log_group" {
 # Resource to create Cloudtrail
 resource "aws_cloudtrail" "trail" {
   name                       = "tokyo_cloudtrail"
-  #depends_on                 = [aws_s3_bucket_policy.logs, aws_iam_role.cloudtrail_cloudwatch_events_role] 
+  depends_on                 = [aws_s3_bucket_policy.logs, aws_iam_role.cloudtrail_cloudwatch_events_role] 
   #cloud_watch_logs_role_arn  = aws_iam_role.cloudtrail_cloudwatch_events_role.arn
-  cloud_watch_logs_group_arn = aws_cloudwatch_log_group.cloudtrail_log_group.arn
+  #cloud_watch_logs_group_arn = aws_cloudwatch_log_group.cloudtrail_log_group.arn
   #cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudwatch_log_group.arn}:*" 
-  #cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudtrail_log_group.arn}:*" # CloudTrail requires the Log Stream wildcard
+  cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudtrail_log_group.arn}:*" # CloudTrail requires the Log Stream wildcard
   enable_log_file_validation = "false"
   enable_logging             = "true"
   is_multi_region_trail      = "false"
