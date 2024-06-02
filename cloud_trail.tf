@@ -25,7 +25,7 @@ resource "aws_cloudtrail" "trail" {
   depends_on                 = [aws_s3_bucket_policy.cloudtrail_bucket_policy, aws_iam_role.cloudtrail_cloudwatch_events_role] 
   cloud_watch_logs_role_arn  = aws_iam_role.cloudtrail_cloudwatch_events_role.arn
   #cloud_watch_logs_group_arn = aws_cloudwatch_log_group.cloudtrail_log_group.arn
-  cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudwatch_log_group.arn}:*" 
+  cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudtrail_log_group.arn}:*" 
   #cloud_watch_logs_group_arn = aws_cloudwatch_log_group.cloudtrail_log_group.arn # CloudTrail requires the Log Stream wildcard
   enable_log_file_validation = "true"
   enable_logging             = "true"
