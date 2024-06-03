@@ -159,7 +159,7 @@ resource "aws_iam_role_policy_attachment" "eventbridge_policy_attachment" {
 resource "aws_iam_role_policy" "eventbridge_policy" {
   role = aws_iam_role.eventbridge_role.id
   policy = jsonencode({
-    Version = "2012-10-17"
+    /*Version = "2012-10-17"
     Statement = [
       {
         Effect = "Allow"
@@ -188,6 +188,23 @@ resource "aws_iam_role_policy" "eventbridge_policy" {
         Resource = "arn:aws:events:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:event-bus/default"
       }
     ]
+  })
+}*/
+    "Statement": [
+        {
+            "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Effect": "Allow",
+            "Principal": {
+                "Service": ["events.amazonaws.com", "delivery.logs.amazonaws.com"]
+            },
+            "Resource": "arn:aws:logs:ap-northeast-1:590183849298:log-group:/aws/events/*:*",
+            "Sid": "TrustEventsToStoreLogEvent"
+        }
+    ],
+    "Version": "2012-10-17"
   })
 }
             
