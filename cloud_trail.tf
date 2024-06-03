@@ -1,10 +1,3 @@
-#Resource to create Cloudwatch log group
-resource "aws_cloudwatch_log_group" "cloudtrail_log_group" {
-  name = "tokyo_cloudtrail_log"
-  tags = {
-    Name = "Cloudwatch for backuping CloudTrail"    
-  }
-}
 # Resource to create Cloudtrail
 resource "aws_cloudtrail" "trail" {
   name                       = "tokyo_cloudtrail"
