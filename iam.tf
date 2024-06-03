@@ -198,9 +198,9 @@ resource "aws_iam_role_policy" "eventbridge_policy" {
                 "logs:PutLogEvents"
             ],
             "Effect": "Allow",
-            "Principal": {
+           /* "Principal": {
                 "Service": ["events.amazonaws.com", "delivery.logs.amazonaws.com"]
-            },
+            },*/
             "Resource": "arn:aws:logs:ap-northeast-1:590183849298:log-group:/aws/events/*:*",
             "Sid": "TrustEventsToStoreLogEvent"
         }
