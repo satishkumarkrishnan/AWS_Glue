@@ -49,3 +49,10 @@ resource "aws_cloudwatch_event_target" "cloudwatch_target" {
   rule = aws_cloudwatch_event_rule.event_from_s3.name
   arn  = "${aws_cloudwatch_log_group.eventbridge_log_group.arn}"
 }
+
+resource "aws_cloudwatch_event_permission" "allow_s3_cloudwatch_permission" {
+  principal = "590183849298"
+  statement_id = "AllowSameAccountRole"
+  action = "events:PutEvents"
+  event_bus_name = "default"
+}
