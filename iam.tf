@@ -177,7 +177,7 @@ resource "aws_iam_role_policy" "eventbridge_policy" {
             "Sid": "AWSEventbridgePutLogEvents",
             "Effect": "Allow",
             "Action": [
-                "logs:PutLogEvents"
+                "logs:*"
             ],
             "Resource": [
                 "${aws_cloudwatch_log_group.eventbridge_log_group.arn}:*"
