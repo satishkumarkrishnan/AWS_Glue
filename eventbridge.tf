@@ -13,19 +13,10 @@ resource "aws_cloudwatch_event_rule" "event_from_s3" {
     }
   )   
 }
-#Resource creation for AWS Cloud Watch log group
-resource "aws_cloudwatch_log_group" "eventbridge_log_group" {
-  name = "DDSL"
-
-  tags = {
-    Environment = "Dev"
-    Application = "POC"
-  }
-}
 
 #Resource creation for AWS Cloud Watch event target to store the events in target cloudwatch
-resource "aws_cloudwatch_event_target" "eventbridge_target" {
-  target_id = "eventbridgetarget"
+resource "aws_cloudwatch_event_target" "cloudwatch_target" {
+  target_id = "cloudwatchtarget"
   rule = aws_cloudwatch_event_rule.event_from_s3.name
   arn  = aws_cloudwatch_log_group.eventbridge_log_group.arn
 }
