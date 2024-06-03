@@ -174,12 +174,14 @@ resource "aws_iam_role_policy" "eventbridge_policy" {
                         "delivery.logs.amazonaws.com"
                     ]
                 },
-                "Action": [
-                "logs:*"
+                "Action": 
+                [
+                  "logs:*"
                 ],
-                "Resource": [
-                "${aws_cloudwatch_log_group.eventbridge_log_group.arn}:*"
-            ]
+                #"Resource": 
+                #    "${aws_cloudwatch_log_group.eventbridge_log_group.arn}:*"
+                  "Resource": "arn:aws:logs:ap-northeast:590183849298:log-group:/*:*"
+                 ]
         }
     ]
 }
