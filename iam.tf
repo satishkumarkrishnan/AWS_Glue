@@ -157,25 +157,30 @@ resource "aws_iam_role_policy_attachment" "eventbridge_policy_attachment" {
   policy_arn = aws_iam_policy.eventbridge_policy.arn
 }*/
 resource "aws_iam_role_policy" "eventbridge_policy" {
-  name = "eventbridge-cloudWatch-policy"
-  role = aws_iam_role.eventbridge_role.id 
+  role = aws_iam_role.eventbridge_role.id
   policy = jsonencode({
-    Version = "2012-10-17"  
-    "Statement": [
-        {
-            "Action": [
-                "logs:CreateLogStream",
-                "logs:PutLogEvents"
-            ],
-            "Effect": "Allow",
-            #"Principal": {
-            #    "Service": ["events.amazonaws.com", "delivery.logs.amazonaws.com"]
-            #},
-            "Resource": "arn:aws:logs:ap-northeast-1:590183849298:log-group:/aws/events/*:*",
-            "Sid": "TrustEventsToStoreLogEvent"
-        }
-    ],
-    "Version": "2012-10-17"
-})
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = "s3:*"
+        Resource = "${aws_s3_bucket.example1.arn}/*"
+      }
+    ]
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = "cloudwatch:*"
+        Resource = "${aws_cloudwatch_log_group.eventbridgelogs.arn}/*"
+      }
+    ]
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = "events:*"
+        Resource = "arn:aws:events:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:event-bus/default"
+      }
+    ]
+  })
 }
             
