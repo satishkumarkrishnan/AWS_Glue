@@ -129,3 +129,30 @@ resource "aws_iam_role_policy" "aws_iam_role_policy_cloudTrail_cloudWatch" {
 }
 EOF
 }
+#Creating a IAM role for Eventbridge
+resource "aws_iam_role" "eventbridge_role" {
+  name               = "Eventbridgerole"
+  assume_role_policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "events.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
+      }
+    ]
+  })
+}
+
+#To create a Eventbridge policy
+resource "aws_iam_policy" "eventbridge_policy" {     
+  policy = data.aws_iam_policy_document.test.json
+}
+
+#To Attach the Eventbridge policy to the Eventbridge
+resource "aws_iam_role_policy_attachment" "eventbridge_policy_attachment" {  
+  role = aws_iam_role.eventbridge_role.name
+  policy_arn = aws_iam_policy.eventbridge_policy.arn
+}
