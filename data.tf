@@ -79,7 +79,7 @@ data "aws_iam_policy_document" "test" {
     }
     actions = ["events:PutEvents",]
     resources = [
-      "arn:aws:events:::${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:event-bus/default",
+    "arn:aws:events:::${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:event-bus/default",
     ]    
   }
 }
