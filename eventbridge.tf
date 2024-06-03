@@ -18,5 +18,5 @@ resource "aws_cloudwatch_event_rule" "event_from_s3" {
 resource "aws_cloudwatch_event_target" "cloudwatch_target" {
   target_id = "cloudwatchtarget"
   rule = aws_cloudwatch_event_rule.event_from_s3.name
-  arn  = aws_cloudwatch_log_group.eventbridge_log_group.arn
+  arn  = "${aws_cloudwatch_log_group.eventbridge_log_group.arn}"
 }
