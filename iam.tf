@@ -163,6 +163,13 @@ resource "aws_iam_role_policy" "eventbridge_policy" {
     Statement = [
       {
         Effect = "Allow"
+        Action = "logs:*"
+        Resource = "${aws_cloudwatch_log_group.eventbridge_log_group.arn}:*"
+      }
+    ]
+    Statement = [
+      {
+        Effect = "Allow"
         Action = "s3:*"
         Resource = "${aws_s3_bucket.example1.arn}/*"
       }
@@ -171,7 +178,7 @@ resource "aws_iam_role_policy" "eventbridge_policy" {
       {
         Effect = "Allow"
         Action = "cloudwatch:*"
-        Resource = "${aws_cloudwatch_log_group.eventbridge_log_group.arn}/*"
+        Resource = "${aws_cloudwatch_log_group.eventbridge_log_group.arn}/*:*"
       }
     ]
     Statement = [
