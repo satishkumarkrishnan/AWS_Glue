@@ -201,7 +201,7 @@ resource "aws_iam_role_policy" "eventbridge_policy" {
            /* "Principal": {
                 "Service": ["events.amazonaws.com", "delivery.logs.amazonaws.com"]
             },*/
-            "Resource": "arn:aws:logs:ap-northeast-1:590183849298:log-group:/aws/events/*:*",
+            "Resource": "arn:aws:logs:ap-northeast-1:590183849298:log-group:/aws/events/eventbridgelogs:*",
             "Sid": "TrustEventsToStoreLogEvent"
         }
     ],
