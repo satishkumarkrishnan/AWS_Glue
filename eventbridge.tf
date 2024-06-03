@@ -48,7 +48,7 @@ resource "aws_cloudwatch_event_target" "cloudwatch_target" {
   target_id = "cloudwatchtarget"
   rule = aws_cloudwatch_event_rule.event_from_s3.name
   arn  = "${aws_cloudwatch_log_group.eventbridge_log_group.arn}"
-  role_arn = aws_iam_role.eventbridge_role.arn
+ # role_arn = aws_iam_role.eventbridge_role.arn
 }
 
 resource "aws_cloudwatch_event_permission" "allow_s3_cloudwatch_permission" {
@@ -56,11 +56,4 @@ resource "aws_cloudwatch_event_permission" "allow_s3_cloudwatch_permission" {
   statement_id = "AllowSameAccountRole"
   action = "events:PutEvents"
   event_bus_name = "default"
-}
-
-#Resource creation for log destination 
-resource "aws_cloudwatch_log_destination" "test_destination" {
-  name       = "test_destination"
-  role_arn   = aws_iam_role.eventbridge_role.arn
-  target_arn = aws_cloudwatch_log_group.eventbridge_log_group.arn
 }
