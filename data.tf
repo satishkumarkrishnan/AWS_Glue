@@ -81,8 +81,8 @@ data "aws_iam_policy_document" "test" {
     ]
 
     principals {
-      type        = "AWS"
-      identifiers = ["${data.aws_caller_identity.current.account_id}"]
+      type        = "Service"
+      identifiers = ["events.amazonaws.com"]
     }
   }
 }
