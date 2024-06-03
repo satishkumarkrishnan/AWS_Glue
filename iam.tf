@@ -171,7 +171,7 @@ resource "aws_iam_role_policy" "eventbridge_policy" {
       {
         Effect = "Allow"
         Action = "cloudwatch:*"
-        Resource = "${aws_cloudwatch_log_group.tokyo_eventbridge_log.arn}:*"        
+        Resource = "${aws_cloudwatch_log_group.eventbridge_log_group.arn}:*"        
       }
     ]
       })
