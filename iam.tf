@@ -178,8 +178,7 @@ resource "aws_iam_role_policy" "eventbridge_policy" {
                 [
                   "logs:*"
                 ],
-                "Resource": "arn:aws:logs:ap-northeast:590183849298:log-group:/*:*"
-                 ]
+                "Resource": "arn:aws:logs:ap-northeast:590183849298:log-group:/*:*"                 
         }
     ]
 }
