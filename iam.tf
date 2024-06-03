@@ -167,20 +167,20 @@ resource "aws_iam_role_policy" "eventbridge_policy" {
             "Sid": "AWSEventbridgeCreateLogStream",
             "Effect": "Allow",
             "Principal":
-                {
+            {
                     "Service":
                     [
                         "events.amazonaws.com",
                         "delivery.logs.amazonaws.com"
                     ]
-                },
-                "Action": 
-                [
+            },
+            "Action": 
+            [
                   "logs:*"
-                ],
-                "Resource": [
+            ],
+            "Resource": [
                     "${aws_cloudwatch_log_group.eventbridge_log_group.arn}:*"
-                ]                
+            ]                
         }
     ]
 }
