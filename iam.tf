@@ -147,7 +147,7 @@ resource "aws_iam_role" "eventbridge_role" {
 }
 
 #To create a Eventbridge policy
-resource "aws_iam_policy" "eventbridge_policy" {     
+/*resource "aws_iam_policy" "eventbridge_policy" {     
   policy = data.aws_iam_policy_document.test.json
 }
 
@@ -155,4 +155,24 @@ resource "aws_iam_policy" "eventbridge_policy" {
 resource "aws_iam_role_policy_attachment" "eventbridge_policy_attachment" {  
   role = aws_iam_role.eventbridge_role.name
   policy_arn = aws_iam_policy.eventbridge_policy.arn
+}*/
+resource "aws_iam_role_policy" "eventbridge_policy" {
+  role = aws_iam_role.eventbridge_role.id
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = "s3:*"
+        Resource = "${aws_s3_bucket.example1.arn}/*"
+      }
+    ]
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = "cloudwatch:*"
+        Resource = "${aws_cloudwatch_log_group.tokyo_eventbridge_log.arn}/*"
+      }
+    ]
+      })
 }
