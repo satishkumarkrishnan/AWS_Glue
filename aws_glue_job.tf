@@ -4,5 +4,6 @@ resource "aws_glue_job" "example" {
   command {
     name            = "gluestreaming"
     script_location = "s3://${aws_s3_bucket.example1.bucket}/example.py"
+    python_version = 3.0
   }
 } 
