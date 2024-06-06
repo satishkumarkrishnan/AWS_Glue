@@ -102,5 +102,5 @@ resource "aws_s3_object" "s3_upload" {
   #key    = each.value
   key = "test.json"
   #source = "C://Users//satishkr//IdeaProjects//satish_personal_learning//Terraform-aws-glue//AWS_Glue//input_dir//${each.value}"  
-  source = "/input_dir/test.json"
+  source = "input_dir/test.json"
 }
