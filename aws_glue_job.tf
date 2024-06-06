@@ -6,4 +6,10 @@ resource "aws_glue_job" "example" {
     script_location = "s3://${aws_s3_bucket.example1.bucket}/example.py"
     python_version = "3"
   }
-} 
+   default_arguments = {    
+    "--continuous-log-logGroup"          = aws_cloudwatch_log_group.glue_job_log_group.name
+    "--enable-continuous-cloudwatch-log" = "true"
+    "--enable-continuous-log-filter"     = "true"
+    "--enable-metrics"                   = ""
+  }
+}
