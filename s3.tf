@@ -99,7 +99,8 @@ resource "aws_kms_alias" "kms_alias_logs" {
 resource "aws_s3_object" "s3_upload" {
   #for_each = fileset("C://Users//satishkr//IdeaProjects//satish_personal_learning//Terraform-aws-glue//AWS_Glue//input_dir//", "**/*.*")
   bucket = aws_s3_bucket.example1.id
-  key    = each.value
+  #key    = each.value
+  key = "test.json"
   #source = "C://Users//satishkr//IdeaProjects//satish_personal_learning//Terraform-aws-glue//AWS_Glue//input_dir//${each.value}"  
   source = "/input_dir/test.json"
 }
