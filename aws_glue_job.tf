@@ -2,8 +2,8 @@ resource "aws_glue_job" "example" {
   name = "DDSL_Glue_job"
   role_arn = aws_iam_role.gluerole.arn
   command {
-    name            = "gluestreaming"
+    name            = "pythonshell"
     script_location = "s3://${aws_s3_bucket.example1.bucket}/example.py"
-    python_version = 3.0
+    python_version = "3"
   }
 } 
