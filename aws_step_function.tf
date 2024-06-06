@@ -1,6 +1,7 @@
 // Create state machine for step function
 resource "aws_sfn_state_machine" "sfn_state_machine" {
   name     = "sample-state-machine"
+  
   role_arn = aws_iam_role.iam_for_sfn.arn
     definition = <<EOF
 {
@@ -9,7 +10,7 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
   "States": {
     "DDSL_Glue_job": {
       "Type": "Task",
-      "Resource": "${aws_glue_job.example.arn}",
+      "Resource": arn:aws:states:::glue:${aws_glue_job.DDSL_Glue_job.name},      
       "End": true
     }
   }
