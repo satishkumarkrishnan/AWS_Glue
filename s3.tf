@@ -88,7 +88,6 @@ resource "aws_s3_bucket_policy" "cloudtrail_bucket_policy" {
 
 resource "aws_s3_object" "dist" {
   for_each = fileset("C://Users//satishkr//IdeaProjects//satish_personal_learning//Terraform-aws-glue//AWS_Glue//input_dir//", "**/*.*")
-
   bucket = aws_s3_bucket.example1.id
   key    = each.value
   source = "C://Users//satishkr//IdeaProjects//satish_personal_learning//Terraform-aws-glue//AWS_Glue//input_dir//${each.value}"  
