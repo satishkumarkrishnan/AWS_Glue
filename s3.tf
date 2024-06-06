@@ -17,7 +17,7 @@ resource "aws_sns_topic" "topic" {
 }
 POLICY
 }
-# S3 bucket to store App
+# S3 bucket to store Raw Datea
 resource "aws_s3_bucket" "example1" {
   bucket = "tokyo-rawdata-bucket"
   # Prevent accidental deletion of this S3 bucket
@@ -26,6 +26,19 @@ resource "aws_s3_bucket" "example1" {
   }
    tags = {
     Name        = "rawdata-bucket"
+    Environment = "Dev"
+  }
+}
+
+# S3 bucket to store preprocessed Data
+resource "aws_s3_bucket" "example2" {
+  bucket = "tokyo-extension-bucket"
+  # Prevent accidental deletion of this S3 bucket
+  lifecycle {
+    prevent_destroy = false
+  }
+   tags = {
+    Name        = "extension-bucket"
     Environment = "Dev"
   }
 }

@@ -15,3 +15,8 @@ resource "aws_cloudwatch_log_group" "eventbridge_log_group" {
     Application = "POC"
   }
 }
+
+#Resource creation for AWS Cloud Watch log group for AWS Glue
+resource "aws_cloudwatch_log_group" "glue_job_log_group" {
+  name = "/aws/events/gluejoblogs"  
+}
