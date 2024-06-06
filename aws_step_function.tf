@@ -10,7 +10,10 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
   "States": {
     "DDSL_Glue_job": {
       "Type": "Task",
-      "Resource": "arn:aws:states:::glue:${aws_glue_job.example.name}",      
+      "Resource": "arn:aws:states:::glue:startJobRun",   
+      "Parameters": {
+        "JobName": "${aws_glue_job.example.name}"
+      },  
       "End": true
     }
   }
