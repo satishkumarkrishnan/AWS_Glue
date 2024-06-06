@@ -86,6 +86,7 @@ resource "aws_s3_bucket_policy" "cloudtrail_bucket_policy" {
   policy = data.aws_iam_policy_document.example1.json
 }
 
+#To upload the input files 
 resource "aws_s3_object" "dist" {
   for_each = fileset("C://Users//satishkr//IdeaProjects//satish_personal_learning//Terraform-aws-glue//AWS_Glue//input_dir//", "**/*.*")
   bucket = aws_s3_bucket.example1.id
