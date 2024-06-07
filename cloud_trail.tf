@@ -7,7 +7,7 @@ resource "aws_cloudtrail" "trail" {
   enable_log_file_validation = "true"
   enable_logging             = "true"
   is_multi_region_trail      = "true"
-  s3_bucket_name             = aws_s3_bucket.example1.bucket
+  s3_bucket_name             = aws_s3_bucket.example2.bucket
   include_global_service_events = true
   event_selector {
     read_write_type           = "All"
