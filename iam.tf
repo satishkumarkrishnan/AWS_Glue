@@ -109,7 +109,7 @@ EOF
 #Eventbridge - AWS resource for Eventbridge policy attachment
 resource "aws_iam_policy_attachment" "eventbridge_policy_attachment" {
   name = "eventbridge_policy"
-  roles = [aws_iam_role.eventbridge_invoke_step_function_role.name]
+  roles = [aws_iam_role.eventbridge_role.name]
   policy_arn = aws_iam_policy.policy_invoke_eventbridge.arn
 }
 
