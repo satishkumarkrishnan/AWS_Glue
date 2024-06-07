@@ -152,7 +152,7 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
 			#   "arn:aws:states:*:*:stateMachine:*"
 		   # ]
             "Resource": [
-                "arn:aws:states:ap-northeast-1:590183849298:stateMachine:sample-state-machine"				
+                "arn:aws:states:ap-northeast-1:590183849298:stateMachine:sample-state-machine:*"				
             ]
         },
         {
