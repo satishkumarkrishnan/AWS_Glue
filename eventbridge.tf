@@ -14,6 +14,15 @@ resource "aws_cloudwatch_event_rule" "event_from_s3" {
     }
   )  
 }
+# Resource to trigger step function every 2 mins 
+resource "aws_cloudwatch_event_rule" "step_function_trigger_event_rule" {
+  name                = "trigger-step-function"
+  description         = "Trigger every 2 min"
+  schedule_expression = "rate(2 minutes)"
+  state              = enabled
+  event_bus_name     = "stepfunction_trigger" 
+}
+
 
 #Resource creation for AWS Cloud Watch event target to store the events in target cloudwatch
 resource "aws_cloudwatch_event_target" "cloudwatch_target" {
@@ -23,10 +32,10 @@ resource "aws_cloudwatch_event_target" "cloudwatch_target" {
 }
 
 resource "aws_cloudwatch_event_permission" "allow_s3_cloudwatch_permission" {
-  principal = "590183849298"
-  statement_id = "AllowSameAccountRole"
-  action = "events:PutEvents"
-  event_bus_name = "default"
+  principal      = "590183849298"
+  statement_id   = "AllowSameAccountRole"
+  action         = "events:PutEvents"
+  event_bus_name = "stepfunction_trigger"
 }
 
 #Resource creation for AWS Cloud Watch event target to store the events in target stepfunction 
@@ -34,5 +43,5 @@ resource "aws_cloudwatch_event_target" "stepfunction_target" {
   target_id = "stepfunctiontarget"
   rule = aws_cloudwatch_event_rule.event_from_s3.name
   arn  = "${aws_sfn_state_machine.sfn_state_machine.arn}" 
-  role_arn = aws_iam_role.iam_for_sfn.arn
+  #role_arn = aws_iam_role.iam_for_sfn.arn
 }
