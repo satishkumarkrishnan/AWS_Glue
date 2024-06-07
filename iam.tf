@@ -148,9 +148,9 @@ resource "aws_iam_role" "eventbridge_role" {
 }
 
 #To create a Eventbridge policy
-resource "aws_iam_policy" "eventbridge_policy" {     
+/*resource "aws_iam_policy" "eventbridge_policy" {     
   policy = data.aws_iam_policy_document.test.json
-}
+}*/
 
 #To Attach the Eventbridge policy to the Eventbridge
 resource "aws_iam_role_policy_attachment" "eventbridge_policy_attachment" {  
@@ -161,47 +161,13 @@ resource "aws_iam_role_policy_attachment" "eventbridge_policy_attachment" {
 resource "aws_iam_role_policy" "eventbridge_policy" {
   role = aws_iam_role.eventbridge_role.id
   policy = jsonencode({
-    /*Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = "logs:*"
-        Resource = "${aws_cloudwatch_log_group.eventbridge_log_group.arn}:*"
-      }
-    ]
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = "s3:*"
-        Resource = "${aws_s3_bucket.example1.arn}/*"
-      }
-    ]
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = "cloudwatch:*"
-        Resource = "${aws_cloudwatch_log_group.eventbridge_log_group.arn}/*:*"
-      }
-    ]
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = "events:*"
-        Resource = "arn:aws:events:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:event-bus/default"
-      }
-    ]
-  })
-}*/
     "Statement": [
         {
             "Action": [
                 "logs:CreateLogStream",
                 "logs:PutLogEvents"
             ],
-            "Effect": "Allow",
-           /* "Principal": {
-                "Service": ["events.amazonaws.com", "delivery.logs.amazonaws.com"]
-            },*/
+            "Effect": "Allow",          
             "Resource": "arn:aws:logs:ap-northeast-1:590183849298:log-group:/aws/events/eventbridgelogs:*",
             "Sid": "TrustEventsToStoreLogEvent"
         }
