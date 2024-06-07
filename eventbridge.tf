@@ -34,7 +34,7 @@ resource "aws_cloudwatch_event_permission" "allow_s3_cloudwatch_permission" {
   principal      = "590183849298"
   statement_id   = "AllowSameAccountRole"
   action         = "events:PutEvents"
-  event_bus_name = "stepfunction_trigger"
+  #event_bus_name = "stepfunction_trigger"
 }
 
 #Resource creation for AWS Cloud Watch event target to store the events in target stepfunction 
