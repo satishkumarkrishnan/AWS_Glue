@@ -247,10 +247,3 @@ resource "aws_iam_policy_attachment" "glue_policy_attachment" {
   roles = [aws_iam_role.gluerole.name]
   policy_arn = aws_iam_policy.gluepolicy.arn
 }
-
-#AWS Glue - AWS resource for service role policy
-resource "aws_iam_policy_attachment" "glue_service_role_policy" {
-  name       = "AWSGlueServiceRole"
-  policy_arn = "arn:aws:iam::aws:policy/service-role/glue_service_role_policy"
-  roles      = [aws_iam_role.gluerole.name]
-}
