@@ -151,9 +151,10 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
             "Action": [
                 "states:StartExecution"
             ],
-            "Resource": [
-                "arn:aws:states:ap-northeast-1:590183849298:stateMachine:sample-state-machine"				
-            ]
+            "Resource": "*"
+            #"Resource": [
+               # "arn:aws:states:ap-northeast-1:590183849298:stateMachine:sample-state-machine"				
+           # ]
         },
         {
             "Effect": "Allow",
