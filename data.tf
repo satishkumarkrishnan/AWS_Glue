@@ -72,11 +72,7 @@ data "aws_iam_policy_document" "example1" {
 data "aws_iam_policy_document" "test" {
   statement {
     sid    = "DevAccountAccess"
-    effect = "Allow"
-    /*principals {
-      type        = "Service"
-      identifiers = ["events.amazonaws.com"]
-    }*/
+    effect = "Allow"   
     actions = ["events:PutEvents",]
     resources = [
     "arn:aws:events:::${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:event-bus/default",

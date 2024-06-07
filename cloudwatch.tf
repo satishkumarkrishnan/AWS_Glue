@@ -16,6 +16,11 @@ resource "aws_cloudwatch_log_group" "eventbridge_log_group" {
   }
 }
 
+#Resource creation for AWS Cloud Watch log group for AWS Step Function
+resource "aws_cloudwatch_log_group" "stepfunction_log_group" {
+  name = "/aws/events/stepfunctionlogs"  
+}
+
 #Resource creation for AWS Cloud Watch log group for AWS Glue
 resource "aws_cloudwatch_log_group" "glue_job_log_group" {
   name = "/aws/events/gluejoblogs"  
