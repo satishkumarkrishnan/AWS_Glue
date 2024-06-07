@@ -120,7 +120,7 @@ resource "aws_iam_policy_attachment" "eventbridge_policy_attachment" {
 }
 
 # Stepfunction - Create IAM role for AWS Step Function
-resource "aws_iam_role" "iam_for_sfn" {
+/*resource "aws_iam_role" "iam_for_sfn" {
   name = "stepFunction_role"
   assume_role_policy = jsonencode(
   {
@@ -134,6 +134,21 @@ resource "aws_iam_role" "iam_for_sfn" {
      ]
 }  
 )
+}*/
+resource "aws_iam_role" "stepfunction_role" {
+  name = "stepfunction_role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "states.amazonaws.com"
+        }
+      },
+    ]
+  })
 }
 
 #Stepfunction - Create IAM policy for AWS Step function
