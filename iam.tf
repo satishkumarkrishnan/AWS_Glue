@@ -1,4 +1,4 @@
-Cloudwatch -# Resource creation for IAM role for Cloudwatch
+#Cloudwatch -# Resource creation for IAM role for Cloudwatch
 resource "aws_iam_role" "cloudtrail_cloudwatch_events_role" {
   name               = "cloudtrail_cloudwatch_events_role"
   path               = "/"
