@@ -135,18 +135,19 @@ resource "aws_iam_policy_attachment" "eventbridge_policy_attachment" {
 }  
 )
 }*/
-resource "aws_iam_role" "iam_for_sfn" {
+ resource "aws_iam_role" "iam_for_sfn" {
   name = "stepfunction_role"
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
+    "Version": "2012-10-17"
+    "Statement": [
       {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Principal = {
-          Service = "states.amazonaws.com"
-        }
-      },
+        "Effect": "Allow",
+        "Action": "sts:AssumeRole",        
+        "Principal": {
+          "Service": "states.amazonaws.com"
+        }       
+       
+      }     
     ]
   })
 }
@@ -163,7 +164,9 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
             "Action": [
                 "states:StartExecution"
             ],
-            "Resource": "*"
+            "Resource": [ 
+			"arn:aws:states:*:*:stateMachine:*"
+		    ]
             #"Resource": [
                # "arn:aws:states:ap-northeast-1:590183849298:stateMachine:sample-state-machine"				
            # ]
@@ -192,15 +195,14 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
         },
         {
             "Effect": "Allow",
-            "Action": [
-               
+            "Action": [               
                 "logs:CreateLogStream",                
                 "logs:PutLogEvents"                
             ],
             "Resource": "*"
              #  "arn:aws:logs:ap-northeast-1:590183849298:log-group:/aws/events/stepfunctionlogs:destination:*"           
            # ]
-        }
+        }       
     ]
 })
 }
