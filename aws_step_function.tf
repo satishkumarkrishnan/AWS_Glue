@@ -22,6 +22,6 @@ EOF
 logging_configuration {
   log_destination = "${aws_cloudwatch_log_group.stepfunction_log_group.arn}:*"
   include_execution_data = true
-  level = "All"  
+  level = "ALL"  
 }
 }  
