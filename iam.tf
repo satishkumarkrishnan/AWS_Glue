@@ -129,9 +129,9 @@ resource "aws_iam_role" "iam_for_sfn" {
   "Statement": [
     {
       "Effect": "Allow",
-      principals {
-      type = "Service"
-      identifiers = ["states.amazonaws.com","events.amazonaws.com"]
+      "Principal": {
+          "Service": "events.amazonaws.com"
+        }, 
     }
 
       "Action": "sts:AssumeRole"
