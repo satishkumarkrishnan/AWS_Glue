@@ -152,7 +152,7 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
                 "states:StartExecution"
             ],
             "Resource": [
-                "arn:aws:states:ap-northeast-1:590183849298:stateMachine:sample-state-machine:*"				
+                "arn:aws:states:ap-northeast-1:590183849298:stateMachine:sample-state-machine"				
             ]
         },
         {
@@ -171,8 +171,7 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
                 "events:PutTargets",
                 "events:PutRule",
                 "events:DescribeRule",
-                "events:PutEvents",
-                "glue:*",
+                "events:PutEvents"                
             ],
             "Resource": [
                "arn:aws:events:ap-northeast-1:590183849298:rule/s3_put_object_event"
@@ -181,16 +180,9 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
         {
             "Effect": "Allow",
             "Action": [
-               "logs:CreateLogDelivery",
-                "logs:CreateLogStream",
-                "logs:GetLogDelivery",
-                "logs:UpdateLogDelivery",
-                "logs:DeleteLogDelivery",
-                "logs:ListLogDeliveries",
-                "logs:PutLogEvents",
-                "logs:PutResourcePolicy",
-                "logs:DescribeResourcePolicies",
-                "logs:DescribeLogGroups"
+               
+                "logs:CreateLogStream",                
+                "logs:PutLogEvents"                
             ],
             "Resource": "*"
              #  "arn:aws:logs:ap-northeast-1:590183849298:log-group:/aws/events/stepfunctionlogs:destination:*"           
