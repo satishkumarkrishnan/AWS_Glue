@@ -6,11 +6,11 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
     definition = <<EOF
 {
   "Comment": "To trigger events from s3 to stepfunction to AWS Glue",
-  "StartAt": "DDSL_Glue_job",
+  "StartAt": "GlueJob",
   "States": {
-    "DDSL_Glue_job": {
+    "GlueJob": {
       "Type": "Task",
-      "Resource": "arn:aws:states:::glue:startJobRun",   
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",   
       "Parameters": {
         "JobName": "${aws_glue_job.example.name}"
       },  
