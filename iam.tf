@@ -1,84 +1,4 @@
-resource "aws_iam_policy" "gluepolicy" {
-  name = "gluepolicy"
-  policy = jsonencode(
-    {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:*",
-                "s3-object-lambda:*",
-                "glue:*",
-                "iam:ListRolePolicies",
-                "iam:GetRole",
-                "iam:GetRolePolicy",
-                "cloudwatch:PutMetricData",
-                "logs:*"                
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-  )
-}
-#IAM Resource for Gluejob
-resource "aws_iam_role" "gluerole" {
-  name               = "gluerole"
-  assume_role_policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Principal": {
-          "Service": "glue.amazonaws.com"
-        },
-        "Action": "sts:AssumeRole"
-      }
-    ]
-  })
-}
-
-// EVENTBRIDGE IAM ROLE POLICY
-resource "aws_iam_policy" "eventbridge_invoke_step_function_policy" {
-  name = "tokyo_eventbridge_invoke_step_function"
-  policy = jsonencode(
-{
-    "Version": "2012-10-17",
-    "Statement": [
-	{
-         "Effect": "Allow",
-            "Action": [
-                "*"
-            ],
-            "Resource": "*"
-     }  
-    ]
-  })
-}
-
-resource "aws_iam_role" "eventbridge_invoke_step_function_role" {
-  name = "eventbridge_invoke_step_function_role"
-  assume_role_policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Principal": {
-          "Service": "states.amazonaws.com"
-        },
-        "Action": "sts:AssumeRole"
-      }
-    ]
-  })
-}
-
-resource "aws_iam_policy_attachment" "attach_stepfunction_policy_to_eventbridge" {
-  name = "attach_stepfunction_policy_to_eventbridge"
-  roles = [aws_iam_role.eventbridge_invoke_step_function_role.name]
-  policy_arn = aws_iam_policy.eventbridge_invoke_step_function_policy.arn
-}
-
+Cloudwatch -# Resource creation for IAM role for Cloudwatch
 resource "aws_iam_role" "cloudtrail_cloudwatch_events_role" {
   name               = "cloudtrail_cloudwatch_events_role"
   path               = "/"
@@ -98,6 +18,7 @@ resource "aws_iam_role" "cloudtrail_cloudwatch_events_role" {
 EOF
 }
 
+# Cloudwatch -Resource creation for IAM role policy for Cloudwatch
 resource "aws_iam_role_policy" "aws_iam_role_policy_cloudTrail_cloudWatch" {
   name = "cloudTrail-cloudWatch-policy"
   role = aws_iam_role.cloudtrail_cloudwatch_events_role.id
@@ -130,7 +51,8 @@ resource "aws_iam_role_policy" "aws_iam_role_policy_cloudTrail_cloudWatch" {
 }
 EOF
 }
-#Creating a IAM role for Eventbridge
+
+#Eventbridge - Creating a IAM role for Eventbridge
 resource "aws_iam_role" "eventbridge_role" {
   name               = "Eventbridgerole"
   assume_role_policy = jsonencode({
@@ -147,6 +69,7 @@ resource "aws_iam_role" "eventbridge_role" {
   })
 }
 
+#Eventbridge - Creating a IAM Role policy for Eventbridge
 resource "aws_iam_role_policy" "eventbridge_policy" {
   role = aws_iam_role.eventbridge_role.id
   policy = jsonencode({
@@ -165,7 +88,32 @@ resource "aws_iam_role_policy" "eventbridge_policy" {
   })
 }
 
-# Create IAM role for AWS Step Function
+# Eventbridge - Create IAM policy for AWS Step Function to invoke-stepfunction-role-created-from-cloudwatch
+resource "aws_iam_policy" "policy_invoke_eventbridge" {
+  name        = "stepFunctionSampleEventBridgeInvocationPolicy" 
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+             "Action": [ "states:StartExecution" ],
+            "Resource": [ "arn:aws:states:*:*:stateMachine:*" ]
+        }
+     ]
+   
+}
+EOF           
+}
+
+#Eventbridge - AWS resource for Eventbridge policy attachment
+resource "aws_iam_policy_attachment" "eventbridge_policy_attachment" {
+  name = "eventbridge_policy"
+  roles = [aws_iam_role.eventbridge_invoke_step_function_role.name]
+  policy_arn = aws_iam_policy.policy_invoke_eventbridge.arn
+}
+
+# Stepfunction - Create IAM role for AWS Step Function
 resource "aws_iam_role" "iam_for_sfn" {
   name = "stepFunctionSampleStepFunctionExecutionIAM"
 
@@ -185,21 +133,99 @@ resource "aws_iam_role" "iam_for_sfn" {
 EOF
 }
 
-# Create IAM policy for AWS Step Function to invoke-stepfunction-role-created-from-cloudwatch
-resource "aws_iam_policy" "policy_invoke_eventbridge" {
-  name        = "stepFunctionSampleEventBridgeInvocationPolicy" 
-  policy = <<EOF
+#Stepfunction - Create IAM policy for AWS Step function
+resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
+  name = "tokyo_stepfunction_invoke_gluejob"
+  policy = jsonencode(
 {
     "Version": "2012-10-17",
     "Statement": [
         {
             "Effect": "Allow",
-             "Action": [ "states:StartExecution" ],
-            "Resource": [ "arn:aws:states:*:*:stateMachine:*" ]
+            "Action": [
+                "states:StartExecution"
+            ],
+            "Resource": [
+                "arn:aws:states:ap-northeast-1:590183849298:stateMachine:sample-state-machine"				
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "states:DescribeExecution",
+                "states:StopExecution"
+            ],
+            "Resource": [
+               "arn:aws:states:ap-northeast-1:590183849298:execution:sample-state-machine:*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "events:PutTargets",
+                "events:PutRule",
+                "events:DescribeRule"
+            ],
+            "Resource": [
+               "arn:aws:events:ap-northeast-1:590183849298:rule/s3_put_object_event"
+            ]
         }
-     ]
-   
+    ]
+})
 }
-EOF     
-      
+
+#Stepfunction - AWS resource for stepfunction policy attachment
+resource "aws_iam_policy_attachment" "stepfunction_policy_attachment" {
+  name = "stepfunction_policy"
+  roles = [aws_iam_role.iam_for_sfn.name]
+  policy_arn = aws_iam_policy.stepfunction_invoke_gluejob_policy.arn
+}
+
+# AWS Glue - IAM Resource for Gluejob
+resource "aws_iam_role" "gluerole" {
+  name               = "gluerole"
+  assume_role_policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "glue.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
+      }
+    ]
+  })
+}
+#AWS Glue -IAM Glue policy
+resource "aws_iam_policy" "gluepolicy" {
+  name = "gluepolicy"
+  policy = jsonencode(
+    {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:*",
+                "s3-object-lambda:*",
+                "glue:*",
+                "iam:ListRolePolicies",
+                "iam:GetRole",
+                "iam:GetRolePolicy",
+                "cloudwatch:PutMetricData",
+                "logs:*"                
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+  )
+}
+
+#AWS Glue - AWS resource for Glue policy attachment
+resource "aws_iam_policy_attachment" "glue_policy_attachment" {
+  name = "glue_policy"
+  roles = [aws_iam_role.gluerole.name]
+  policy_arn = aws_iam_policy.gluepolicy.arn
 }
