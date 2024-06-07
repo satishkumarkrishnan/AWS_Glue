@@ -123,23 +123,6 @@ resource "aws_iam_policy_attachment" "eventbridge_policy_attachment" {
 resource "aws_iam_role" "iam_for_sfn" {
   name = "stepFunction_role"
   assume_role_policy = jsonencode(
-/*{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-          "Service": "events.amazonaws.com"
-        }, 
-        "Action": "sts:AssumeRole"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [ "states:StartExecution" ],
-      "Resource": [ "arn:aws:states:*:*:stateMachine:*" ]
-    }
-  ]
-}*/
   {
     "Version": "2012-10-17",
     "Statement": [
