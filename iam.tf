@@ -130,9 +130,8 @@ resource "aws_iam_policy_attachment" "eventbridge_policy_attachment" {
         "Action": "sts:AssumeRole",        
         "Principal": {
           "Service": "states.amazonaws.com"
-        }       
-       
-      }     
+        }              
+      },     
     ]
   })
 }
@@ -149,12 +148,12 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
             "Action": [
                 "states:StartExecution"
             ],
-            "Resource": [ 
-			   "arn:aws:states:*:*:stateMachine:*"
-		    ]
-            #"Resource": [
-               # "arn:aws:states:ap-northeast-1:590183849298:stateMachine:sample-state-machine"				
-           # ]
+           # "Resource": [ 
+			#   "arn:aws:states:*:*:stateMachine:*"
+		   # ]
+            "Resource": [
+                "arn:aws:states:ap-northeast-1:590183849298:stateMachine:sample-state-machine"				
+            ]
         },
         {
             "Effect": "Allow",
