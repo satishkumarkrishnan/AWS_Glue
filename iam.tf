@@ -173,12 +173,19 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
         {
             "Effect": "Allow",
             "Action": [
-                "logs:*"                
+               "logs:CreateLogDelivery",
+                "logs:CreateLogStream",
+                "logs:GetLogDelivery",
+                "logs:UpdateLogDelivery",
+                "logs:DeleteLogDelivery",
+                "logs:ListLogDeliveries",
+                "logs:PutLogEvents",
+                "logs:PutResourcePolicy",
+                "logs:DescribeResourcePolicies",
+                "logs:DescribeLogGroups"
             ],
-           # "Resource": [
-                "Resource": "*"
-               #"arn:aws:logs:ap-northeast-1:590183849298:log-group:/aws/events/stepfunctionlogs:*"              
-               
+            "Resource": "*"
+             #  "arn:aws:logs:ap-northeast-1:590183849298:log-group:/aws/events/stepfunctionlogs:destination:*"           
            # ]
         }
     ]
