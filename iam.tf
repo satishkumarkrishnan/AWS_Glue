@@ -97,7 +97,13 @@ resource "aws_iam_policy" "policy_invoke_eventbridge" {
     "Statement": [
         {
             "Effect": "Allow",
-             "Action": [ "states:StartExecution" ],
+             "Action": [ 
+                "states:StartExecution",
+                "events:PutTargets",
+                "events:PutRule",
+                "events:DescribeRule",
+                "events:PutEvents" 
+                ],
             "Resource": [ "arn:aws:states:*:*:stateMachine:*" ]
         }
      ]
@@ -146,7 +152,7 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
                 "states:StartExecution"
             ],
             "Resource": [
-                "arn:aws:states:ap-northeast-1:590183849298:stateMachine:sample-state-machine"				
+                "arn:aws:states:ap-northeast-1:590183849298:stateMachine:sample-state-machine:*"				
             ]
         },
         {
@@ -164,7 +170,9 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
             "Action": [
                 "events:PutTargets",
                 "events:PutRule",
-                "events:DescribeRule"
+                "events:DescribeRule",
+                "events:PutEvents",
+                "glue:*",
             ],
             "Resource": [
                "arn:aws:events:ap-northeast-1:590183849298:rule/s3_put_object_event"
