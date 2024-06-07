@@ -135,7 +135,7 @@ resource "aws_iam_policy_attachment" "eventbridge_policy_attachment" {
 }  
 )
 }*/
-resource "aws_iam_role" "stepfunction_role" {
+resource "aws_iam_role" "iam_for_sfn" {
   name = "stepfunction_role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
