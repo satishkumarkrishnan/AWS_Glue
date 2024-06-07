@@ -169,6 +169,15 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
             "Resource": [
                "arn:aws:events:ap-northeast-1:590183849298:rule/s3_put_object_event"
             ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:*"                
+            ],
+            "Resource": [
+               "arn:aws:events:ap-northeast-1:590183849298:log-group:/aws/events/stepfunctionlogs:*"
+            ]
         }
     ]
 })
