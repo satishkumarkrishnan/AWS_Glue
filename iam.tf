@@ -148,9 +148,9 @@ resource "aws_iam_role" "eventbridge_role" {
 }
 
 #To create a Eventbridge policy
-/*resource "aws_iam_policy" "eventbridge_policy" {     
+resource "aws_iam_policy" "eventbridge_policy" {     
   policy = data.aws_iam_policy_document.test.json
-}*/
+}
 
 #To Attach the Eventbridge policy to the Eventbridge
 resource "aws_iam_role_policy_attachment" "eventbridge_policy_attachment" {  
