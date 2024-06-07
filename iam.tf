@@ -129,12 +129,21 @@ resource "aws_iam_role" "iam_for_sfn" {
   "Statement": [
     {
       "Effect": "Allow",
-      "Principal": {
-        "Service": "states.amazonaws.com"
-      },
+      principals {
+      type = "Service"
+      identifiers = ["states.amazonaws.com","events.amazonaws.com"]
+    }
+
       "Action": "sts:AssumeRole"
     }
   ]
+  "Statement": [
+        {
+            "Effect": "Allow",
+             "Action": [ "states:StartExecution" ],
+            "Resource": [ "arn:aws:states:*:*:stateMachine:*" ]
+        }
+     ]
 }
 EOF
 }
