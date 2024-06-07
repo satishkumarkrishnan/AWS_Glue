@@ -5,7 +5,7 @@ resource "aws_glue_job" "example" {
   glue_version = "1.0"
   command {
     name            = "pythonshell"
-    script_location = "s3://${aws_s3_bucket.example1.bucket}/script.py"
+    script_location = "s3://${aws_s3_bucket.example1.bucket}/example.py"
     python_version = "3"
   }
    default_arguments = {    
