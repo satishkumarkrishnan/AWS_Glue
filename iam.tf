@@ -175,10 +175,11 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
             "Action": [
                 "logs:*"                
             ],
-            "Resource": [
-               "arn:aws:logs:ap-northeast-1:590183849298:log-group:/aws/events/stepfunctionlogs:*"
+           # "Resource": [
+                "Resource": "*"
+               #"arn:aws:logs:ap-northeast-1:590183849298:log-group:/aws/events/stepfunctionlogs:*"              
                
-            ]
+           # ]
         }
     ]
 })
