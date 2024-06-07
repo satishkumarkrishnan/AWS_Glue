@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "example1" {
 
     actions   = ["s3:GetBucketAcl"]
     resources = [
-    "arn:aws:s3:::${aws_s3_bucket.example1.id}",
+    "arn:aws:s3:::${aws_s3_bucket.example2.id}",
     ]
   }
   statement {
@@ -58,7 +58,7 @@ data "aws_iam_policy_document" "example1" {
 
     actions   = ["s3:PutObject",]
     resources = [
-    "arn:aws:s3:::${aws_s3_bucket.example1.id}/*",
+    "arn:aws:s3:::${aws_s3_bucket.example2.id}/*",
     ]
     
     condition {
