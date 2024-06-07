@@ -69,7 +69,7 @@ data "aws_iam_policy_document" "example1" {
 }
 }
 #Policy for Eventbridge 
-/*data "aws_iam_policy_document" "test" {
+data "aws_iam_policy_document" "test" {
   statement {
     sid    = "DevAccountAccess"
     effect = "Allow"
@@ -82,4 +82,4 @@ data "aws_iam_policy_document" "example1" {
     "arn:aws:events:::${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:event-bus/default",
     ]    
   }
-}*/
+}

@@ -17,7 +17,7 @@ resource "aws_sns_topic" "topic" {
 }
 POLICY
 }
-# S3 bucket to store Raw Datea
+# S3 bucket to store Raw Data
 resource "aws_s3_bucket" "example1" {
   bucket = "tokyo-rawdata-bucket"
   # Prevent accidental deletion of this S3 bucket
