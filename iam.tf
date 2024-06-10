@@ -182,8 +182,16 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
         {
             "Effect": "Allow",
             "Action": [               
-                "logs:CreateLogStream",                
-                "logs:PutLogEvents"                
+               "logs:CreateLogDelivery",
+                "logs:CreateLogStream",
+                "logs:GetLogDelivery",
+                "logs:UpdateLogDelivery",
+                "logs:DeleteLogDelivery",
+                "logs:ListLogDeliveries",
+                "logs:PutLogEvents",
+                "logs:PutResourcePolicy",
+                "logs:DescribeResourcePolicies",
+                "logs:DescribeLogGroups"              
             ],
             "Resource": "*" ##you need to specify * in the Resource field because CloudWatch API actions, such as CreateLogDelivery and DescribeLogGroups, don't support Resource types defined by Amazon CloudWatch            
         },        
@@ -258,7 +266,7 @@ resource "aws_iam_policy_attachment" "glue_policy_attachment" {
 }
 
 
-//attaching glue job service policy to role(managed policy)
+#AWS Glue - AWS resource for service role 
 resource "aws_iam_policy_attachment" "AWSGlueServiceRole" {
   name       = "AWSGlueServiceRole"
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
