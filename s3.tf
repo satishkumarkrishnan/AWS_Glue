@@ -19,26 +19,26 @@ POLICY
 }
 # S3 bucket to store Raw Data
 resource "aws_s3_bucket" "example1" {
-  bucket = "DDSL-rawdata-bucket"
+  bucket = "DDSL_rawdata_bucket"
   # Prevent accidental deletion of this S3 bucket
   lifecycle {
     prevent_destroy = false
   }
    tags = {
-    Name        = "DDSL-rawdata-bucket"
+    Name        = "DDSL_rawdata_bucket"
     Environment = "Dev"
   }
 }
 
 # S3 bucket to store preprocessed Data
 resource "aws_s3_bucket" "example2" {
-  bucket = "DDSL-extension-bucket"
+  bucket = "DDSL_extension_bucket"
   # Prevent accidental deletion of this S3 bucket
   lifecycle {
     prevent_destroy = false
   }
    tags = {
-    Name        = "DDSL-extension-bucket"
+    Name        = "DDSL_extension_bucket"
     Environment = "Dev"
   }
 }
