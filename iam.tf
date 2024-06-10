@@ -256,3 +256,11 @@ resource "aws_iam_policy_attachment" "glue_policy_attachment" {
   roles = [aws_iam_role.gluerole.name]
   policy_arn = aws_iam_policy.gluepolicy.arn
 }
+
+
+//attaching glue job service policy to role(managed policy)
+resource "aws_iam_policy_attachment" "AWSGlueServiceRole" {
+  name       = "AWSGlueServiceRole"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
+  roles      = [aws_iam_role.gluerole.name]
+}
