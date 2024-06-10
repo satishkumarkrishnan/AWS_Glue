@@ -18,7 +18,7 @@ resource "aws_sns_topic" "topic" {
 POLICY
 }
 # S3 bucket to store Raw Data
-resource "aws_s3_bucket" "test1" {
+resource "aws_s3_bucket" "example1" {
   bucket = "rawdata-bucket"
   # Prevent accidental deletion of this S3 bucket
   lifecycle {
@@ -31,7 +31,7 @@ resource "aws_s3_bucket" "test1" {
 }
 
 # S3 bucket to store preprocessed Data
-resource "aws_s3_bucket" "test2" {
+resource "aws_s3_bucket" "example2" {
   bucket = "extension-bucket"
   # Prevent accidental deletion of this S3 bucket
   lifecycle {
