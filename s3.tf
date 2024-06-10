@@ -19,7 +19,7 @@ POLICY
 }
 # S3 bucket to store Raw Data
 resource "aws_s3_bucket" "example1" {
-  bucket = "tokyo-rawdata-bucket"
+  bucket = "rawdata-bucket"
   # Prevent accidental deletion of this S3 bucket
   lifecycle {
     prevent_destroy = false
@@ -32,7 +32,7 @@ resource "aws_s3_bucket" "example1" {
 
 # S3 bucket to store preprocessed Data
 resource "aws_s3_bucket" "example2" {
-  bucket = "tokyo-extension-bucket"
+  bucket = "extension-bucket"
   # Prevent accidental deletion of this S3 bucket
   lifecycle {
     prevent_destroy = false
