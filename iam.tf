@@ -172,11 +172,10 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
                 "events:PutTargets",
                 "events:PutRule",
                 "events:DescribeRule",
-                "events:PutEvents"                              
+              #  "events:PutEvents"                              
             ],
             "Resource": [
                "arn:aws:events:ap-northeast-1:590183849298:rule/s3_put_object_event"
-
             ]
         },
         {
@@ -185,9 +184,7 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
                 "logs:CreateLogStream",                
                 "logs:PutLogEvents"                
             ],
-            "Resource": "*"
-             #  "arn:aws:logs:ap-northeast-1:590183849298:log-group:/aws/events/stepfunctionlogs:destination:*"           
-           # ]
+            "Resource": "*" ##you need to specify * in the Resource field because CloudWatch API actions, such as CreateLogDelivery and DescribeLogGroups, don't support Resource types defined by Amazon CloudWatch            
         },        
         {
             "Effect": "Allow",
@@ -245,7 +242,7 @@ resource "aws_iam_policy" "gluepolicy" {
                 "cloudwatch:PutMetricData",
                 "logs:*"                
             ],
-            "Resource": "*"
+            "Resource": "*" #AWS Glue does not have resource-based control
         }
     ]
 }
