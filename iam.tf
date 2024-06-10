@@ -148,12 +148,12 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
             "Action": [
                 "states:StartExecution"
             ],
-           # "Resource": [ 
-			#   "arn:aws:states:*:*:stateMachine:*"
-		   # ]
-            "Resource": [
-                "arn:aws:states:ap-northeast-1:590183849298:stateMachine:sample-state-machine:*"				
-            ]
+            "Resource": [ 
+			        "arn:aws:states:*:*:stateMachine:*"
+		        ]
+           # "Resource": [
+           #     "arn:aws:states:ap-northeast-1:590183849298:stateMachine:sample-state-machine:*"				
+           # ]
         },
         {
             "Effect": "Allow",
@@ -162,7 +162,8 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
                 "states:StopExecution"
             ],
             "Resource": [
-               "arn:aws:states:ap-northeast-1:590183849298:execution:sample-state-machine:*"
+               "arn:aws:states:*:*:stateMachine:*"
+              # "arn:aws:states:ap-northeast-1:590183849298:execution:sample-state-machine:*"
             ]
         },
         {
@@ -171,10 +172,11 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
                 "events:PutTargets",
                 "events:PutRule",
                 "events:DescribeRule",
-                "events:PutEvents"                
+                "events:PutEvents"                              
             ],
             "Resource": [
                "arn:aws:events:ap-northeast-1:590183849298:rule/s3_put_object_event"
+
             ]
         },
         {
@@ -186,8 +188,18 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
             "Resource": "*"
              #  "arn:aws:logs:ap-northeast-1:590183849298:log-group:/aws/events/stepfunctionlogs:destination:*"           
            # ]
-        }       
-    ]
+        },        
+        {
+            "Effect": "Allow",
+            "Action": [
+                "glue:StartJobRun",
+                "glue:GetJobRun",
+                "glue:GetJobRuns",
+                "glue:BatchStopJobRun"
+            ],
+            "Resource": "*"
+        }
+    ]    
 })
 }
 
