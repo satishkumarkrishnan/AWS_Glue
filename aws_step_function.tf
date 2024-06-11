@@ -3,6 +3,7 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
   name     = "sample-state-machine" 
   
   role_arn = aws_iam_role.iam_for_sfn.arn
+  type     = "EXPRESS"
     definition = <<EOF
 {
   "Comment": "To trigger events from s3 to stepfunction to AWS Glue",
@@ -10,10 +11,10 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
   "States": {
     "GlueJob": {
       "Type": "Task",
-      "Resource": "arn:aws:states:::glue:startJobRun.sync",   
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
       "Parameters": {
         "JobName": "${aws_glue_job.example.name}"
-      },  
+      },
       "End": true
     }
   }
