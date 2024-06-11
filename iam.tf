@@ -178,11 +178,10 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
         {
             "Effect": "Allow",
             "Action": [
-                "states:StartExecution"
-              #  "states:DescribeExecution",
-              #  "states:StopExecution"                              
-            ],        
-            #"Resource": "*"    
+                "states:StartExecution",
+                "states:DescribeExecution",
+                "states:StopExecution"                              
+            ],                    
             "Resource": [ "arn:aws:states:*:*:stateMachine:*" ]
             
         }                
