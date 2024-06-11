@@ -138,7 +138,7 @@ resource "aws_iam_policy_attachment" "eventbridge_policy_attachment" {
 
 #Stepfunction - Create IAM policy for AWS Step function
 resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
-  name = "tokyo_stepfunction_invoke_gluejob"
+  name = "tokyo_stepfunction_iam_policy"
   policy = jsonencode(
 {
     "Version": "2012-10-17",
@@ -146,28 +146,26 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
         {
             "Effect": "Allow",
             "Action": [
-                "states:StartExecution"
-            ],
-            "Resource": "*"
-           # "Resource": [ 
-			     #   "arn:aws:states:*:*:stateMachine:*"
-		       # ]
-           # "Resource": [
-           #     "arn:aws:states:ap-northeast-1:590183849298:stateMachine:sample-state-machine:*"				
-           # ]
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
+                "states:StartExecution",
                 "states:DescribeExecution",
-                "states:StopExecution"
+                "states:StopExecution",
+                "logs:CreateLogDelivery",
+                "logs:CreateLogStream",
+                "logs:GetLogDelivery",
+                "logs:UpdateLogDelivery",
+                "logs:DeleteLogDelivery",
+                "logs:ListLogDeliveries",
+                "logs:PutLogEvents",
+                "logs:PutResourcePolicy",
+                "logs:DescribeResourcePolicies",
+                "logs:DescribeLogGroups",
+                "glue:StartJobRun",
+                "glue:GetJobRun",
+                "glue:GetJobRuns",
+                "glue:BatchStopJobRun"   
             ],
-            "Resource": "*"
-           /* "Resource": [              
-               "arn:aws:states:*:*:stateMachine:*"
-               "arn:aws:states:ap-northeast-1:590183849298:execution:sample-state-machine:*"
-            ]*/
-        },
+            "Resource": "*"         
+        },       
         {
             "Effect": "Allow",
             "Action": [
@@ -179,34 +177,8 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
             "Resource": [
                "arn:aws:events:ap-northeast-1:590183849298:rule/s3_put_object_event"
             ]
-        },
-        {
-            "Effect": "Allow",
-            "Action": [               
-               "logs:CreateLogDelivery",
-                "logs:CreateLogStream",
-                "logs:GetLogDelivery",
-                "logs:UpdateLogDelivery",
-                "logs:DeleteLogDelivery",
-                "logs:ListLogDeliveries",
-                "logs:PutLogEvents",
-                "logs:PutResourcePolicy",
-                "logs:DescribeResourcePolicies",
-                "logs:DescribeLogGroups"              
-            ],
-            "Resource": "*" ##you need to specify * in the Resource field because CloudWatch API actions, such as CreateLogDelivery and DescribeLogGroups, don't support Resource types defined by Amazon CloudWatch            
-        },        
-        {
-            "Effect": "Allow",
-            "Action": [
-                "glue:StartJobRun",
-                "glue:GetJobRun",
-                "glue:GetJobRuns",
-                "glue:BatchStopJobRun"
-            ],
-            "Resource": "*" # AWS Glue does not have resource-based control.
-        }
-    ]    
+        }         
+     ]    
 })
 }
 
