@@ -164,7 +164,10 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
                 "glue:GetJobRuns",
                 "glue:BatchStopJobRun"   
             ],
-            "Resource": "*"         
+            #"Resource": "*"     
+                       
+            "Resource": [ "arn:aws:states:*:*:stateMachine:*" ]
+            
         },       
         {
             "Effect": "Allow",
