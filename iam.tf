@@ -128,8 +128,8 @@ resource "aws_iam_policy_attachment" "eventbridge_policy_attachment" {
       {
         "Effect": "Allow",
         "Action": "sts:AssumeRole",        
-        "Principal": {
-          "Service": "states.amazonaws.com"
+        "Principals": {
+          "Service": [ "states.amazonaws.com, events.amazonaws.com" ]
         }              
       },     
     ]
