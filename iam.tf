@@ -145,10 +145,7 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
     "Statement": [
         {
             "Effect": "Allow",
-            "Action": [
-                "states:StartExecution",
-                "states:DescribeExecution",
-                "states:StopExecution",
+            "Action": [                
                 "logs:CreateLogDelivery",
                 "logs:CreateLogStream",
                 "logs:GetLogDelivery",
@@ -164,10 +161,7 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
                 "glue:GetJobRuns",
                 "glue:BatchStopJobRun"   
             ],
-            #"Resource": "*"     
-                       
-            "Resource": [ "arn:aws:states:*:*:stateMachine:*" ]
-            
+            "Resource": "*"                     
         },       
         {
             "Effect": "Allow",
@@ -180,11 +174,20 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
             "Resource": [
                "arn:aws:events:ap-northeast-1:590183849298:rule/s3_put_object_event"
             ]
-        }         
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "states:StartExecution",
+                "states:DescribeExecution",
+                "states:StopExecution"                              
+            ],            
+            "Resource": [ "arn:aws:states:*:*:stateMachine:*" ]
+            
+        }                
      ]    
 })
 }
-
 #Stepfunction - AWS resource for stepfunction policy attachment
 resource "aws_iam_policy_attachment" "stepfunction_policy_attachment" {
   name = "stepfunction_policy"

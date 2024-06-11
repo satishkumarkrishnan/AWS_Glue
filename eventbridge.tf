@@ -41,6 +41,6 @@ resource "aws_cloudwatch_event_permission" "allow_s3_cloudwatch_permission" {
 resource "aws_cloudwatch_event_target" "stepfunction_target" {
   target_id = "stepfunctiontarget"
   rule = aws_cloudwatch_event_rule.event_from_s3.name
-  arn  = "${aws_sfn_state_machine.sfn_state_machine.arn}" 
+  arn  = aws_sfn_state_machine.sfn_state_machine.arn
   role_arn = aws_iam_role.iam_for_sfn.arn
 }
