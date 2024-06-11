@@ -168,7 +168,7 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
                "arn:aws:states:ap-northeast-1:590183849298:execution:sample-state-machine:*"
             ]*/
         },
-       /* {
+        {
             "Effect": "Allow",
             "Action": [
                 "events:PutTargets",
@@ -179,7 +179,7 @@ resource "aws_iam_policy" "stepfunction_invoke_gluejob_policy" {
             "Resource": [
                "arn:aws:events:ap-northeast-1:590183849298:rule/s3_put_object_event"
             ]
-        },*/
+        },
         {
             "Effect": "Allow",
             "Action": [               
