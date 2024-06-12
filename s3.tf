@@ -98,7 +98,7 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
 }
 
 # Explicitly block all public access to the extension S3 bucket
-resource "aws_s3_bucket_public_access_block" "public_access" {
+resource "aws_s3_bucket_public_access_block" "public_access1" {
   bucket                  = aws_s3_bucket.example2.id
   block_public_acls       = true
   block_public_policy     = true
