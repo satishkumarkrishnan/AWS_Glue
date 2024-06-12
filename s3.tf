@@ -63,14 +63,17 @@ resource "aws_s3_bucket_versioning" "enabled" {
 }
 # Enable server-side encryption by default
 resource "aws_s3_bucket_server_side_encryption_configuration" "default" {
-  bucket = aws_s3_bucket.example1.id
+  bucket = [ aws_s3_bucket.example1.id, aws_s3_bucket.example2.id ]
 
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
+      kms_master_key_id = aws_kms_key.ddsl_kms_key.arn
+      sse_algorithm = "aws:kms"
     }
   }
 }
+
+
 # Explicitly block all public access to the S3 bucket
 resource "aws_s3_bucket_public_access_block" "public_access" {
   bucket                  = aws_s3_bucket.example1.id
@@ -90,8 +93,6 @@ resource "aws_s3_bucket_policy" "cloudtrail_bucket_policy" {
 resource "aws_s3_object" "s3_upload" {
   for_each = fileset("input_dir/", "**/*.*")
   bucket = aws_s3_bucket.example1.id
-  key    = each.value
-  #key = "test.json"
-  source = "input_dir/${each.value}"  
-  #source = "input_dir/test.json"
+  key    = each.value  
+  source = "input_dir/${each.value}"
 }
