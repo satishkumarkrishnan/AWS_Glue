@@ -62,7 +62,7 @@ resource "aws_s3_bucket_versioning" "enabled" {
   }
 }
 # Enable server-side encryption by default
-/*resource "aws_s3_bucket_server_side_encryption_configuration" "default" {
+resource "aws_s3_bucket_server_side_encryption_configuration" "default" {
   bucket = aws_s3_bucket.example1.id
 
   rule {
@@ -71,7 +71,7 @@ resource "aws_s3_bucket_versioning" "enabled" {
       sse_algorithm = "aws:kms"
     }
   }
-}*/
+}
 
 
 # Explicitly block all public access to the S3 bucket
