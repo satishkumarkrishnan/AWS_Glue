@@ -56,7 +56,7 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
 # Enable versioning so you can see the full revision history of your
 # state files
 resource "aws_s3_bucket_versioning" "enabled" {
-  bucket = [ aws_s3_bucket.example1.id, aws_s3_bucket.example1.id ]
+  bucket = [ aws_s3_bucket.example1.id, aws_s3_bucket.example2.id ]
     versioning_configuration {
     status = "Enabled"   
   }
