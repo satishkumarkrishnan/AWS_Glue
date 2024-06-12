@@ -58,13 +58,13 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
 resource "aws_s3_bucket_versioning" "enabled" {
   bucket = aws_s3_bucket.example1.id
     versioning_configuration {
-    status = "Enabled"
+    status = "Enabled"   
   }
+
 }
 # Enable server-side encryption by default
 resource "aws_s3_bucket_server_side_encryption_configuration" "default" {
   bucket = aws_s3_bucket.example1.id  
-
   rule {
     apply_server_side_encryption_by_default {
       kms_master_key_id = aws_kms_key.mykey.arn
@@ -72,7 +72,6 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "default" {
     }
   }
 }
-
 
 # Explicitly block all public access to the S3 bucket
 resource "aws_s3_bucket_public_access_block" "public_access" {
