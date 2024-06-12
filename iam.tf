@@ -215,10 +215,7 @@ resource "aws_iam_role" "gluerole" {
 resource "aws_iam_policy" "gluepolicy" {
   name = "gluepolicy"
   policy = jsonencode(
-    {
-    "Version": "2012-10-17",
-    "Statement": [
-       {
+    {    
     "Version": "2012-10-17",
     "Statement": [
         {
@@ -262,9 +259,7 @@ resource "aws_iam_policy" "gluepolicy" {
             "Resource": [
                 "arn:aws:logs:*:*:/aws-glue/*"
             ]
-        }          
-    ]
-}
+        }                  
     ]
 }
   )
