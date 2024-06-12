@@ -13,3 +13,8 @@ terraform {
 module "aws_glue" {
   source    = "git@github.com:satishkumarkrishnan/terraform-aws-vpc.git?ref=main"   
 }
+
+#To use the KMS module already created
+module "kms" {
+  source="git@github.com:satishkumarkrishnan/Terraform-KMS.git?ref=main"   
+}
