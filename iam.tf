@@ -1,5 +1,5 @@
 #To create KMS Policy 
-resource "aws_kms_key_policy" "ddsl_kms_key_policy" {
+/*resource "aws_kms_key_policy" "ddsl_kms_key_policy" {
   key_id = aws_kms_key.ddsl_kms_key.id
   policy = jsonencode({
     "Version" = "2012-10-17"
@@ -36,7 +36,7 @@ resource "aws_kms_key_policy" "ddsl_kms_key_policy" {
     ]
    
   })
-}
+}*/
 #Cloudwatch -# Resource creation for IAM role for Cloudwatch
 resource "aws_iam_role" "cloudtrail_cloudwatch_events_role" {
   name               = "cloudtrail_cloudwatch_events_role"
