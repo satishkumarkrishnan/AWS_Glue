@@ -1,7 +1,6 @@
 #To create KMS Policy 
 resource "aws_kms_key_policy" "ddsl_kms_key_policy" {
-  key_id = aws_kms_key.ddsl_kms_key.Id
-  depends_on = [ aws_kms_key ]
+  key_id = aws_kms_key.ddsl_kms_key.Id  
   policy = jsonencode({
     "Version" = "2012-10-17"
     "Id" = "KMS policy"
@@ -35,7 +34,7 @@ resource "aws_kms_key_policy" "ddsl_kms_key_policy" {
             }
         }    
     ]
-   
+   depends_on = [ aws_kms_key ]
   })
 }
 #Cloudwatch -# Resource creation for IAM role for Cloudwatch
