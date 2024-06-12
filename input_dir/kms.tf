@@ -11,5 +11,5 @@ resource "aws_kms_key" "ddsl_kms_key" {
 #To create KMS Alias
 resource "aws_kms_alias" "ddsl_kms_key_alias" {
   name          = "alias/kms_key"
-  target_key_id = aws_kms_key.ddsl_kms_key.id
+  target_key_id = aws__key.ddsl_kms_key.id
 }
