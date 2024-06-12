@@ -253,17 +253,7 @@ resource "aws_iam_policy" "gluepolicy" {
                 "arn:aws:s3:::*/*aws-glue-*/*",
                 "arn:aws:s3:::aws-glue-*"
             ]
-        },       
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:CreateBucket",
-                "s3:PutBucketPublicAccessBlock"  
-              ],
-            "Resource": [
-                "arn:aws:s3:::aws-glue-*"
-            ]
-        },
+        },        
         {
             "Effect": "Allow",
             "Action": [
@@ -272,22 +262,7 @@ resource "aws_iam_policy" "gluepolicy" {
             "Resource": [
                 "arn:aws:logs:*:*:/aws-glue/*"
             ]
-        },              
-        {
-            "Action": [
-                "iam:PassRole"
-            ],
-            "Effect": "Allow",
-            "Resource": "arn:aws:iam::*:role/AWSGlueServiceRole*",
-            "Condition": {
-                "StringLike": {
-                    "iam:PassedToService": [
-                        "glue.amazonaws.com"
-                    ]
-                }
-            }
-        } 
-       
+        }          
     ]
 }
     ]
