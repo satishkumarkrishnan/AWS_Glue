@@ -228,11 +228,7 @@ resource "aws_iam_policy" "gluepolicy" {
                 "iam:ListRolePolicies",
                 "iam:GetRole",
                 "iam:GetRolePolicy",
-                "iam:ListAttachedRolePolicies",                
-                "s3:ListAllMyBuckets",
-                "s3:ListBucket",
-                "s3:GetBucketAcl",
-                "s3:GetBucketLocation",                
+                "iam:ListAttachedRolePolicies",     
                 "kms:ListAliases",
                 "kms:DescribeKey"                               
             ],
@@ -251,6 +247,17 @@ resource "aws_iam_policy" "gluepolicy" {
                 "arn:aws:s3:::aws-glue-*"
             ]
         },        
+        {
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::ddsl-rawdata-bucket/*",
+                "arn:aws:s3:::ddsl-extension-bucket/*"             
+            ],
+            "Effect": "Allow"
+        },
         {
             "Effect": "Allow",
             "Action": [
