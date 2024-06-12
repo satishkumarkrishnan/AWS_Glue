@@ -261,8 +261,7 @@ resource "aws_iam_policy" "gluepolicy" {
             ]
         }                  
     ]
-}
-  )
+  })  
 }
 
 #AWS Glue - AWS resource for Glue policy attachment
