@@ -53,18 +53,23 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
   }*/
 }
 
-# Enable versioning so you can see the full revision history of your
-# state files
+# Enable versioning so you can see the full revision history of your input files
 resource "aws_s3_bucket_versioning" "enabled" {
-  bucket = [ aws_s3_bucket.example1.id, aws_s3_bucket.example2.id ]
+  bucket = aws_s3_bucket.example1.id
     versioning_configuration {
     status = "Enabled"   
   }
-
 }
-# Enable server-side encryption by default
+# Enable versioning so you can see the full revision history of your processed files
+resource "aws_s3_bucket_versioning" "enabled1" {
+  bucket = aws_s3_bucket.example2.id
+    versioning_configuration {
+    status = "Enabled"   
+  }
+}
+# Enable server-side encryption by default for raw data bucket
 resource "aws_s3_bucket_server_side_encryption_configuration" "default" {
-  bucket = [ aws_s3_bucket.example1.id, aws_s3_bucket.example2.id ]
+  bucket = aws_s3_bucket.example1.id
   rule {
     apply_server_side_encryption_by_default {
       kms_master_key_id = aws_kms_key.ddsl_kms.arn
@@ -73,15 +78,33 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "default" {
   }
 }
 
-# Explicitly block all public access to the S3 bucket
+# Enable server-side encryption by default for extension bucket
+resource "aws_s3_bucket_server_side_encryption_configuration" "default1" {
+  bucket = aws_s3_bucket.example2.id
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = aws_kms_key.ddsl_kms.arn
+      sse_algorithm = "aws:kms"      
+    }
+  }
+}
+# Explicitly block all public access to the raw data S3 bucket
 resource "aws_s3_bucket_public_access_block" "public_access" {
-  bucket                  = [ "aws_s3_bucket.example1.id", "aws_s3_bucket.example2.id" ]
+  bucket                  = aws_s3_bucket.example1.id
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
 
+# Explicitly block all public access to the extension S3 bucket
+resource "aws_s3_bucket_public_access_block" "public_access" {
+  bucket                  = aws_s3_bucket.example2.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
 #To create a S3 bucket with policy
 resource "aws_s3_bucket_policy" "cloudtrail_bucket_policy" {
   bucket = aws_s3_bucket.example2.id
