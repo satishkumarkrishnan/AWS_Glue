@@ -19,7 +19,7 @@ resource "aws_cloudwatch_event_rule" "event_from_s3" {
   name                = "trigger-step-function"
   description         = "Trigger every 2 min"
   schedule_expression = "rate(2 minutes)"  
-  event_bus_name     = "stepfunction_trigger" 
+  event_bus_name     = "scheduled_stepfunction_trigger" 
 }*/
 
 
