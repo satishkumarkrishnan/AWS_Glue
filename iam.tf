@@ -218,20 +218,78 @@ resource "aws_iam_policy" "gluepolicy" {
     {
     "Version": "2012-10-17",
     "Statement": [
+       {
+    "Version": "2012-10-17",
+    "Statement": [
         {
             "Effect": "Allow",
             "Action": [
-                "s3:*",
-                "s3-object-lambda:*",
-                "glue:*",
+                "glue:*",                
+                "iam:ListRoles",
+                "iam:ListUsers",
+                "iam:ListGroups",
                 "iam:ListRolePolicies",
                 "iam:GetRole",
                 "iam:GetRolePolicy",
-                "cloudwatch:PutMetricData",
-                "logs:*"                
+                "iam:ListAttachedRolePolicies",                
+                "s3:ListAllMyBuckets",
+                "s3:ListBucket",
+                "s3:GetBucketAcl",
+                "s3:GetBucketLocation",                
+                "kms:ListAliases",
+                "kms:DescribeKey"                               
             ],
-            "Resource": "*" #AWS Glue does not have resource-based control
-        }
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::*/*aws-glue-*/*",
+                "arn:aws:s3:::aws-glue-*"
+            ]
+        },       
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:CreateBucket",
+                "s3:PutBucketPublicAccessBlock"  
+              ],
+            "Resource": [
+                "arn:aws:s3:::aws-glue-*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:GetLogEvents"
+            ],
+            "Resource": [
+                "arn:aws:logs:*:*:/aws-glue/*"
+            ]
+        },              
+        {
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:iam::*:role/AWSGlueServiceRole*",
+            "Condition": {
+                "StringLike": {
+                    "iam:PassedToService": [
+                        "glue.amazonaws.com"
+                    ]
+                }
+            }
+        } 
+       
+    ]
+}
     ]
 }
   )
@@ -243,8 +301,6 @@ resource "aws_iam_policy_attachment" "glue_policy_attachment" {
   roles = [aws_iam_role.gluerole.name]
   policy_arn = aws_iam_policy.gluepolicy.arn
 }
-
-
 #AWS Glue - AWS resource for service role 
 resource "aws_iam_policy_attachment" "AWSGlueServiceRole" {
   name       = "AWSGlueServiceRole"

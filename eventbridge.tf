@@ -15,12 +15,13 @@ resource "aws_cloudwatch_event_rule" "event_from_s3" {
   )  
 }
 # Resource to trigger step function every 2 mins 
-/*resource "aws_cloudwatch_event_rule" "step_function_trigger_event_rule" {
+resource "aws_cloudwatch_event_rule" "step_function_trigger_event_rule" {
   name                = "trigger-step-function"
   description         = "Trigger every 2 min"
   schedule_expression = "rate(2 minutes)"  
-  event_bus_name     = "scheduled_stepfunction_trigger" 
-}*/
+  #event_bus_name     = "scheduled_stepfunction_trigger" 
+  event_bus_name      = "default"
+}
 
 
 #Resource creation for AWS Cloud Watch event target to store the events in target cloudwatch
