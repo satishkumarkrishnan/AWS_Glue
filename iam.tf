@@ -23,7 +23,7 @@ resource "aws_kms_key_policy" "ddsl_kms_policy" {
         }         
     ]     
   })
-  depends_on = [ aws_kms_key.ddsl_kms ]
+  #depends_on = [ aws_kms_key.ddsl_kms ]
 }
 #Cloudwatch -# Resource creation for IAM role for Cloudwatch
 resource "aws_iam_role" "cloudtrail_cloudwatch_events_role" {
