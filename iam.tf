@@ -1,6 +1,6 @@
 #To create KMS Policy 
 resource "aws_kms_key_policy" "ddsl_kms_policy" {
-  key_id = aws_kms_key.ddsl_kms.id  
+  key_id = aws_kms_key.ddsl_kms.arn
   policy = jsonencode({
     "Version" = "2012-10-17"
     "Id" = "KMS policy"
@@ -8,23 +8,38 @@ resource "aws_kms_key_policy" "ddsl_kms_policy" {
      {
             "Sid": "Enable IAM User Permissions",
             "Effect": "Allow",
-          #  "Principal": {
-          #      "AWS": "arn:aws:iam::590183849298:root"
-          #  },
+            "Principal": {
+                "AWS": "arn:aws:iam::590183849298:root"
+            },
+            "Action": "kms:*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "logs.ap-northeast-1.amazonaws.com"
+            },
             "Action": [
                 "kms:Encrypt*",
-                "kms:Decrypt*"
+                "kms:Decrypt*",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+                "kms:Describe*"
+            ],
+            "Resource": [
+              "arn:aws:kms:ap-northeeast-1:590183849298:key/*"
             ]
-             "Resource": [
-                  "arn:aws:kms:*:59018384929:key/*"
-                 # "arn:aws:kms:ap-northeast-1:590183849298:key/e64d580a-e8d3-46e9-9d50-6f486f4f5f0a",
-                 # "arn:aws:kms:ap-northeast-1:590183849298:key/e64d580a-e8d3-46e9-9d50-6f486f4f5f0a"
-              ]
-        }         
-    ]     
+            "Condition": {
+                "ArnLike": {
+                    "kms:EncryptionContext:aws:logs:arn": "arn:aws:logs:ap-northeast-1:590183849298:*"
+                }
+            }
+               }    
+                ]
+   
   })
-  #depends_on = [ aws_kms_key.ddsl_kms ]
 }
+
 #Cloudwatch -# Resource creation for IAM role for Cloudwatch
 resource "aws_iam_role" "cloudtrail_cloudwatch_events_role" {
   name               = "cloudtrail_cloudwatch_events_role"
