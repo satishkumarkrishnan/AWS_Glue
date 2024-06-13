@@ -16,12 +16,14 @@ resource "aws_kms_key_policy" "ddsl_kms_policy" {
                 "kms:Decrypt*"
             ]
              "Resource": [
-                  "arn:aws:kms:ap-northeast-1:590183849298:key/e64d580a-e8d3-46e9-9d50-6f486f4f5f0a",
-                  "arn:aws:kms:ap-northeast-1:590183849298:key/e64d580a-e8d3-46e9-9d50-6f486f4f5f0a"
+                  "arn:aws:kms:*:59018384929:key/*"
+                 # "arn:aws:kms:ap-northeast-1:590183849298:key/e64d580a-e8d3-46e9-9d50-6f486f4f5f0a",
+                 # "arn:aws:kms:ap-northeast-1:590183849298:key/e64d580a-e8d3-46e9-9d50-6f486f4f5f0a"
               ]
         }         
     ]   
   })
+  depends_on = [ aws_kms_key.ddsl_kms ]
 }
 #Cloudwatch -# Resource creation for IAM role for Cloudwatch
 resource "aws_iam_role" "cloudtrail_cloudwatch_events_role" {
