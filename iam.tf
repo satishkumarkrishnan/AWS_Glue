@@ -1,5 +1,5 @@
 #To create KMS Policy 
-resource "aws_kms_key_policy" "ddsl_kms_key_policy" {
+resource "aws_kms_key_policy" "ddsl_kms_policy" {
   key_id = aws_kms_key.ddsl_kms.id  
   policy = jsonencode({
     "Version" = "2012-10-17"
