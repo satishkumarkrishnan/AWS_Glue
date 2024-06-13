@@ -298,7 +298,7 @@ resource "aws_iam_policy" "gluepolicy" {
             ],
             "Resource": [
                 "arn:aws:s3:::ddsl-rawdata-bucket/*",
-              #  "arn:aws:s3:::ddsl-extension-bucket/*"             
+                "arn:aws:s3:::ddsl-extension-bucket/*"             
             ],
             "Effect": "Allow"
         },
