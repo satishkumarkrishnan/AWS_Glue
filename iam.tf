@@ -274,7 +274,8 @@ resource "aws_iam_policy" "gluepolicy" {
                 "kms:ListAliases",
                 "kms:DescribeKey",   
                 "kms:Encrypt*",
-                "kms:Decrypt*"                      
+                "kms:Decrypt*",
+                "kms:GenerateDataKey"              
             ],
             "Resource": [
                 "*"
