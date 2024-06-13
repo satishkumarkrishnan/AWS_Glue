@@ -8,9 +8,9 @@ resource "aws_kms_key_policy" "ddsl_kms_policy" {
      {
             "Sid": "Enable IAM User Permissions",
             "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::590183849298:root"
-            },
+          #  "Principal": {
+          #      "AWS": "arn:aws:iam::590183849298:root"
+          #  },
             "Action": [
                 "kms:Encrypt*",
                 "kms:Decrypt*"
