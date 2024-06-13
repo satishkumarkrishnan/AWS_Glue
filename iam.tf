@@ -11,28 +11,15 @@ resource "aws_kms_key_policy" "ddsl_kms_key_policy" {
             "Principal": {
                 "AWS": "arn:aws:iam::590183849298:root"
             },
-            "Action": "kms:*",
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Service": "logs.ap-northeast-1.amazonaws.com"
-            },
             "Action": [
                 "kms:Encrypt*",
-                "kms:Decrypt*",
-                "kms:ReEncrypt*",
-                "kms:GenerateDataKey*",
-                "kms:Describe*"
-            ],
-            "Resource": "*",
-            "Condition": {
-                "ArnLike": {
-                    "kms:EncryptionContext:aws:logs:arn": "arn:aws:logs:ap-northeast-1:590183849298:*"
-                }
-            }
-        }    
+                "kms:Decrypt*"
+            ]
+             "Resource": [
+                  "arn:aws:kms:ap-northeast-1:590183849298:key/e64d580a-e8d3-46e9-9d50-6f486f4f5f0a",
+                  "arn:aws:kms:ap-northeast-1:590183849298:key/e64d580a-e8d3-46e9-9d50-6f486f4f5f0a"
+              ]
+        }         
     ]   
   })
 }
