@@ -21,7 +21,7 @@ resource "aws_kms_key_policy" "ddsl_kms_policy" {
                   "arn:aws:kms:ap-northeast-1:590183849298:key/e64d580a-e8d3-46e9-9d50-6f486f4f5f0a"
               ]
         }         
-    ]   
+    ]     
   })
   depends_on = [ aws_kms_key.ddsl_kms ]
 }
@@ -257,7 +257,9 @@ resource "aws_iam_policy" "gluepolicy" {
                 "iam:GetRolePolicy",
                 "iam:ListAttachedRolePolicies",     
                 "kms:ListAliases",
-                "kms:DescribeKey"                               
+                "kms:DescribeKey",   
+                "kms:Encrypt*",
+                "kms:Decrypt*"                      
             ],
             "Resource": [
                 "*"
