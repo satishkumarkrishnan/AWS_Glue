@@ -6,7 +6,7 @@ resource "aws_glue_job" "example" {
   glue_version = "4.0"
   command {
     #name            = "pythonshell"
-    script_location = "s3://${aws_s3_bucket.example1.bucket}/segregate.py"
+    script_location = "s3://${aws_s3_bucket.example1.bucket}/pyspark.py"
     python_version = "3"
   }
    default_arguments = {    
