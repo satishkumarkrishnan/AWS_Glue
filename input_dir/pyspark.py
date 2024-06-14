@@ -28,7 +28,7 @@ df = spark.read.csv(input_path, header=True)
 #df_transformed = df.withColumn("Column1[0]")
 #df_transformed.write.csv(output_path, mode="overwrite", header=True)
 df.show()
-df.write.csv("C:\\spark-3.4.3-bin-hadoop3\\lineage6.csv")
+df.write.csv("s3://ddsl-extension-bucket/lineage.csv")
 lineage_data = {
     "job_name": "YourSparkJob",
     "inputs": [input_path],
