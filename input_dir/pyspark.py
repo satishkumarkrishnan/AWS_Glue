@@ -5,7 +5,7 @@ from pyspark.shell import sc
 from pyspark.sql import SparkSession
 
 # from boto3_fixtures.contrib import boto3
-jar_path = "C:\spark-3.4.3-bin-hadoop3\openlineage-spark_2.12-1.13.1.jar"
+jar_path = "s3://ddsl-rawdata-bucket/openlineage-spark_2.13-1.13.1.jar"
 spark = SparkSession.builder.getOrCreate()
 sc.setLogLevel("DEBUG")
 spark = (SparkSession.builder.master('local').appName('Python Spark SQL basic example')
@@ -22,8 +22,8 @@ spark = (SparkSession.builder.master('local').appName('Python Spark SQL basic ex
          .getOrCreate())
 
 # Your Spark job code
-input_path = "C:\\spark-3.4.3-bin-hadoop3\\test.csv"
-output_path = "C:\\spark-3.4.3-bin-hadoop3\\output.csv"
+input_path = "s3://ddsl-rawdata-bucket/test.csv"
+output_path = "s3://ddsl-extension-bucket/output.csv"
 df = spark.read.csv(input_path, header=True)
 #df_transformed = df.withColumn("Column1[0]")
 #df_transformed.write.csv(output_path, mode="overwrite", header=True)
