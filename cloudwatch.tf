@@ -25,3 +25,8 @@ resource "aws_cloudwatch_log_group" "stepfunction_log_group" {
 resource "aws_cloudwatch_log_group" "glue_job_log_group" {
   name = "/aws/events/gluejoblogs"  
 }
+
+#Resource creation for AWS Cloud Watch log group for AWS Glue data lineage
+resource "aws_cloudwatch_log_group" "data_lineage_log_group" {
+  name = "/aws/events/datalineagelogs"  
+}
