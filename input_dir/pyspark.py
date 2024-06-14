@@ -22,27 +22,27 @@ spark = (SparkSession.builder.master('local').appName('Python Spark SQL basic ex
          .getOrCreate())
 
 # Your Spark job code
-input_path = "s3://ddsl-rawdata-bucket/test.csv"
-output_path = "s3://ddsl-extension-bucket/output.csv"
-df = spark.read.csv(input_path, header=True)
-#df_transformed = df.withColumn("Column1[0]")
-#df_transformed.write.csv(output_path, mode="overwrite", header=True)
-df.show()
-df.write.csv("s3://ddsl-extension-bucket/lineage.csv")
-lineage_data = {
-    "job_name": "YourSparkJob",
-    "inputs": [input_path],
-    "outputs": [output_path]
-}
-lineage_json = json.dumps(lineage_data)
+#input_path = "s3://ddsl-rawdata-bucket/test.csv"
+#output_path = "s3://ddsl-extension-bucket/output.csv"
+#df = spark.read.csv(input_path, header=True)
+##df_transformed = df.withColumn("Column1[0]")
+##df_transformed.write.csv(output_path, mode="overwrite", header=True)
+#df.show()
+#df.write.csv("s3://ddsl-extension-bucket/lineage.csv")
+#lineage_data = {
+#    "job_name": "YourSparkJob",
+#    "inputs": [input_path],
+#    "outputs": [output_path]
+#}
+#lineage_json = json.dumps(lineage_data)
 # Initialize Glue client
-glue = boto3.client('glue')
+#glue = boto3.client('glue')
 
 # Example S3 location to store lineage information
-s3_bucket = 's3://ddsl-extension-bucket/'
-s3_key = 'lineage.json'
+#s3_bucket = 's3://ddsl-extension-bucket/'
+#s3_key = 'lineage.json'
 
 # Upload lineage JSON to S3
-glue.put_data_catalog_lineage_settings(CatalogId='your-catalog-id', LineageSettings={"LineageData": lineage_json})
+#glue.put_data_catalog_lineage_settings(CatalogId='your-catalog-id', LineageSettings={"LineageData": lineage_json})
 
 spark.stop()
