@@ -295,7 +295,9 @@ resource "aws_iam_policy" "gluepolicy" {
         {
             "Action": [
                 "s3:GetObject",
-                "s3:PutObject"
+                "s3:PutObject",
+                "s3:List*",
+                "s3:*Object*"
             ],
             "Resource": [
                 "arn:aws:s3:::ddsl-rawdata-bucket/*",
@@ -306,7 +308,8 @@ resource "aws_iam_policy" "gluepolicy" {
         {
             "Action": [
                 "s3:GetObject",
-                "s3:PutObject"
+                "s3:PutObject",
+                "s3:List*"
             ],
             "Resource": [
                   "arn:aws:s3:::aws-glue-*/*",
