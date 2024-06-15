@@ -5,11 +5,10 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
  
 # from boto3_fixtures.contrib import boto3
-jar_path = "s3://ddsl-rawdata-bucket/openlineage-spark_2.12-1.13.1.jar"
+#jar_path = "s3://ddsl-rawdata-bucket/openlineage-spark_2.12-1.13.1.jar"
 spark = SparkSession.builder.getOrCreate()
 sc.setLogLevel("DEBUG")
-spark = (SparkSession.builder.master('local').appName('Python Spark SQL basic example')
-         .config('spark.jars', jar_path)
+spark = (SparkSession.builder.master('local').appName('Python Spark SQL basic example')         
          .config('spark.some.config.option', 'some-value')
          .config('spark.openlineage.transport.type', 'http')
          .config('spark.extraListeners', 'io.openlineage.spark.agent.OpenLineageSparkListener')
