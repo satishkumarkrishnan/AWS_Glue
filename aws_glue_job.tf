@@ -7,7 +7,7 @@ resource "aws_glue_job" "example" {
   command {
     #name            = "pythonshell"
     script_location = "s3://${aws_s3_bucket.example1.bucket}/segregate.py"
-    python_version = "3.8"
+    python_version = "3"
   }
    default_arguments = {    
     "--continuous-log-logGroup"          = aws_cloudwatch_log_group.glue_job_log_group.name
@@ -26,7 +26,7 @@ resource "aws_glue_job" "data_lineage" {
   command {
     #name            = "pythonshell"
     script_location = "s3://${aws_s3_bucket.example1.bucket}/pyspark.py"
-    python_version = "3.8"
+    python_version = "3.9"
   }
    default_arguments = {    
     "--continuous-log-logGroup"          = aws_cloudwatch_log_group.data_lineage_log_group.name
