@@ -21,7 +21,19 @@ resource "aws_cloudwatch_event_rule" "step_function_trigger_event_rule" {
   schedule_expression = "rate(2 minutes)"  
   #event_bus_name     = "scheduled_stepfunction_trigger" 
   event_bus_name      = "default"
+  event_pattern = jsonencode(
+    {
+        "source": ["aws.s3"],
+        "detail-type": ["Object Created"],
+        "detail":{
+            "bucket": {
+                "name": ["${aws_s3_bucket.example1.id}"]
+            }
+        }
+    }
+  )  
 }
+
 
 
 #Resource creation for AWS Cloud Watch event target to store the events in target cloudwatch

@@ -54,7 +54,7 @@ def write_segregated_files(records, footer_info):
 #
 # Define your bucket name and file key
 input_bucket_name = 'ddsl-rawdata-bucket'
-input_file_key = 'AccountExtract_6150_20231213.TXT'
+input_file_key = 'AccountExtract_6150_20231213.txt'
 output_bucket_name = 'ddsl-extension-bucket'
 output_prefix = 'updatedsegted_files'
 #
