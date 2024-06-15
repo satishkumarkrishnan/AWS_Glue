@@ -22,8 +22,8 @@ spark = (SparkSession.builder.master('local').appName('Python Spark SQL basic ex
          .getOrCreate())
 
 # Your Spark job code
-input_path = "test.csv"
-output_path = "output.csv"
+input_path = "s3://ddsl-rawdata-bucket/test.csv"
+output_path = "s3://ddsl-extension-bucket/output.csv"
 #df = spark.read.csv(input_path, header=True)
 df = spark.read.csv(input_path, header=True)
 # df_transformed = df.withColumn("Column1[0]")
