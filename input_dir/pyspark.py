@@ -29,7 +29,7 @@ df = spark.read.csv(input_path, header=True)
 first_column = df.columns[0]
 number = 200  
 df_transformed = df.filter(col(first_column) > number)
-df_transformed.write.csv(output_path, mode="overwirte", header=True)
+df_transformed.write.csv(output_path, mode="overwrite", header=True)
 df.show()
 df.write.csv("s3://ddsl-rawdata-bucket/lineage.csv")
 lineage_data = {
