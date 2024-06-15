@@ -22,9 +22,9 @@ resource "aws_glue_job" "data_lineage" {
   name = "DDSL_Datalineage_job"
   role_arn = aws_iam_role.gluerole.arn
   max_capacity = "1.0"
-  glue_version = "1.0"
+  glue_version = "4.0"
   command {
-    name            = "pythonshell"
+    #name            = "pythonshell"
     script_location = "s3://${aws_s3_bucket.example1.bucket}/pyspark.py"
     python_version = "3"
   }
