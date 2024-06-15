@@ -309,14 +309,19 @@ resource "aws_iam_policy" "gluepolicy" {
                 "s3:PutObject"
             ],
             "Resource": [
-                "arn:aws:s3:::ddsl-extension-bucket/*"             
+                  "arn:aws:s3:::aws-glue-*/*",
+                  "arn:aws:s3:::*/*aws-glue-*/*"           
             ],
             "Effect": "Allow"
         },
         {
             "Effect": "Allow",
             "Action": [
-                "logs:GetLogEvents"
+                "logs:GetLogEvents",
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "logs:DescribeLogStreams"
             ],
             "Resource": [
                 "arn:aws:logs:*:*:/aws-glue/*"
