@@ -25,7 +25,7 @@ resource "aws_glue_job" "data_lineage" {
   glue_version = "4.0"
   command {
     #name            = "pythonshell"
-    script_location = "s3://${aws_s3_bucket.example1.bucket}/pyspark.py"
+    script_location = "s3://${aws_s3_bucket.example1.bucket}/spark_version.py"
     python_version = "3"
   }
    default_arguments = {    
