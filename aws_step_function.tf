@@ -16,7 +16,7 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
         "JobName": "${aws_glue_job.data_lineage.name}"
       },
       "End": true
-    }
+    }s
   }
 }
 EOF
