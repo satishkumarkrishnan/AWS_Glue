@@ -19,18 +19,18 @@ resource "aws_glue_job" "example" {
 }
 
 #AWS Glue job for a Py script
-resource "aws_glue_job" "data_lineage" {
-  name = "DDSL_Datalineage_job"
+resource "aws_glue_job" "data_quality1" {
+  name = "DDSL_Dataquality_job"
   role_arn = aws_iam_role.gluerole.arn
   max_capacity = "1.0"
   glue_version = "4.0"
   command {
     #name            = "pythonshell"
-    script_location = "s3://${aws_s3_bucket.example1.bucket}/spark_version.py"
+    script_location = "s3://${aws_s3_bucket.example1.bucket}/dq1.py"
     python_version = "3"
   }
    default_arguments = {    
-    "--continuous-log-logGroup"          = aws_cloudwatch_log_group.data_lineage_log_group.name
+    "--continuous-log-logGroup"          = aws_cloudwatch_log_group.data_quality_log_group.name
     "--enable-continuous-cloudwatch-log" = "true"
     "--enable-continuous-log-filter"     = "true"
     "--enable-metrics"                   = ""

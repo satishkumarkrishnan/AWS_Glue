@@ -42,6 +42,19 @@ resource "aws_s3_bucket" "example2" {
     Environment = "Dev"
   }
 }
+
+# S3 bucket to store DQ1 Data
+resource "aws_s3_bucket" "example3" {
+  bucket = "ddsl-dq1"
+  # Prevent accidental deletion of this S3 bucket
+  lifecycle {
+    prevent_destroy = false
+  }
+   tags = {
+    Name        = "ddsl-dq1"
+    Environment = "Dev"
+  }
+}
 #To create a S3 Bucket Notofication 
 resource "aws_s3_bucket_notification" "bucket_notification" {
   bucket      = aws_s3_bucket.example1.id
@@ -63,6 +76,13 @@ resource "aws_s3_bucket_versioning" "enabled" {
 # Enable versioning so you can see the full revision history of your processed files
 resource "aws_s3_bucket_versioning" "enabled1" {
   bucket = aws_s3_bucket.example2.id
+    versioning_configuration {
+    status = "Enabled"   
+  }
+}
+# Enable versioning so you can see the full revision history of your processed files
+resource "aws_s3_bucket_versioning" "enabled2" {
+  bucket = aws_s3_bucket.example3.id
     versioning_configuration {
     status = "Enabled"   
   }
