@@ -21,7 +21,7 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
                     "Type": "Task",
                     "Resource": "arn:aws:states:::glue:startJobRun.sync",
                     "Parameters": {
-                        "JobName": "${aws_glue_job.data_lineage.name}"
+                        "JobName": "${aws_glue_job.aws_glue_job.name}"
                     },
                     "End": true
                 }
