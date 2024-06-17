@@ -18,10 +18,6 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
             "Next": "Data Lineage Job run"
         },
         "Data Lineage Job run": {
-            "Comment": "To trigger Data Lineage AWS Glue job",
-            "StartAt": "GlueJob",
-            "States": {
-                "GlueJob": {
                     "Type": "Task",
                     "Resource": "arn:aws:states:::glue:startJobRun.sync",
                     "Parameters": {
@@ -29,8 +25,7 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
                     },
                     "End": true
                 }
-            }
-        }
+        
     }
 }
 EOF
