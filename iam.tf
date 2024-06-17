@@ -280,43 +280,22 @@ resource "aws_iam_policy" "gluepolicy" {
             "Resource": [
                 "*"
             ]
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:GetObject",
-                "s3:PutObject"
-            ],
-            "Resource": [
-                "arn:aws:s3:::*/*aws-glue-*/*",
-                "arn:aws:s3:::aws-glue-*"
-            ]
-        },        
+        },             
         {
             "Action": [
                 "s3:GetObject",
                 "s3:PutObject",
                 "s3:List*",
-                "s3:*Object*"
+                "s3:*Object*",
+                "s3:CopyObject"
             ],
             "Resource": [
                 "arn:aws:s3:::ddsl-rawdata-bucket/*",
-                "arn:aws:s3:::ddsl-extension-bucket/*"             
+                "arn:aws:s3:::ddsl-extension-bucket/*",
+                "arn:aws:s3:::ddsl-dq1/*"                            
             ],
             "Effect": "Allow"
-        },
-        {
-            "Action": [
-                "s3:GetObject",
-                "s3:PutObject",
-                "s3:List*"
-            ],
-            "Resource": [
-                  "arn:aws:s3:::aws-glue-*/*",
-                  "arn:aws:s3:::*/*aws-glue-*/*"           
-            ],
-            "Effect": "Allow"
-        },
+        },        
         {
             "Effect": "Allow",
             "Action": [
