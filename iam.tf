@@ -327,7 +327,7 @@ resource "aws_iam_policy" "gluepolicy" {
                 "logs:DescribeLogStreams"
             ],
             "Resource": [
-                "arn:aws:logs:*:*:/aws-glue/*"
+                "*"
             ]
         }                  
     ]
