@@ -135,7 +135,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "default2" {
     }
   }
 }
-# Enable server-side encryption by default for DDQ1 bucket
+# Enable server-side encryption by default for DDQ2 bucket
 resource "aws_s3_bucket_server_side_encryption_configuration" "default3" {
   bucket = aws_s3_bucket.example4.id
   rule {
@@ -191,4 +191,14 @@ resource "aws_s3_object" "s3_upload" {
   bucket = aws_s3_bucket.example1.id
   key    = each.value  
   source = "input_dir/${each.value}"
+}
+# To create required folders in DQ2 bucket for preprocessing
+resource "aws_s3_object" "object" {
+  bucket = aws_s3_bucket.example4.id
+  key    = pass  
+}
+# To create required folders in DQ2 bucket for preprocessing
+resource "aws_s3_object" "object" {
+  bucket = aws_s3_bucket.example4.id
+  key    = failed
 }
