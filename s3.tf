@@ -192,13 +192,3 @@ resource "aws_s3_object" "s3_upload" {
   key    = each.value  
   source = "input_dir/${each.value}"
 }
-# To create required folders in DQ2 bucket for preprocessing
-resource "aws_s3_object" "object1" {
-  bucket = aws_s3_bucket.example4.id
-  key    = pass  
-}
-# To create required folders in DQ2 bucket for preprocessing
-resource "aws_s3_object" "object2" {
-  bucket = aws_s3_bucket.example4.id
-  key    = failed
-}
