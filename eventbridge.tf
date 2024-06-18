@@ -34,8 +34,6 @@ resource "aws_cloudwatch_event_rule" "step_function_trigger_event_rule" {
   )  
 }
 
-
-
 #Resource creation for AWS Cloud Watch event target to store the events in target cloudwatch
 resource "aws_cloudwatch_event_target" "cloudwatch_target" {
   target_id = "cloudwatchtarget"

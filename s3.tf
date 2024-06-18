@@ -30,7 +30,7 @@ resource "aws_s3_bucket" "example1" {
   }
 }
 
-# S3 bucket to store preprocessed Data
+# S3 bucket to store Segregated Data
 resource "aws_s3_bucket" "example2" {
   bucket = "ddsl-extension-bucket"
   # Prevent accidental deletion of this S3 bucket
@@ -71,12 +71,7 @@ resource "aws_s3_bucket" "example4" {
 #To create a S3 Bucket Notofication 
 resource "aws_s3_bucket_notification" "bucket_notification" {
   bucket      = aws_s3_bucket.example1.id
-  eventbridge = true
-  /*topic {
-    topic_arn     = aws_cloudtrail.trail.arn
-    events        = ["s3:ObjectCreated:*"]    
-    filter_suffix = "*.log"
-  }*/
+  eventbridge = true  
 }
 
 # Enable versioning so you can see the full revision history of your MBP files
@@ -130,6 +125,26 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "default1" {
     }
   }
 }
+# Enable server-side encryption by default for DDQ1 bucket
+resource "aws_s3_bucket_server_side_encryption_configuration" "default2" {
+  bucket = aws_s3_bucket.example3.id
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = aws_kms_key.ddsl_kms.arn
+      sse_algorithm = "aws:kms"      
+    }
+  }
+}
+# Enable server-side encryption by default for DDQ1 bucket
+resource "aws_s3_bucket_server_side_encryption_configuration" "default3" {
+  bucket = aws_s3_bucket.example4.id
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = aws_kms_key.ddsl_kms.arn
+      sse_algorithm = "aws:kms"      
+    }
+  }
+}
 # Explicitly block all public access to the raw data S3 bucket
 resource "aws_s3_bucket_public_access_block" "public_access" {
   bucket                  = aws_s3_bucket.example1.id
@@ -142,6 +157,23 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
 # Explicitly block all public access to the extension S3 bucket
 resource "aws_s3_bucket_public_access_block" "public_access1" {
   bucket                  = aws_s3_bucket.example2.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+# Explicitly block all public access to the DQ1 S3 bucket
+resource "aws_s3_bucket_public_access_block" "public_access" {
+  bucket                  = aws_s3_bucket.example3.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+# Explicitly block all public access to the DQ2 S3 bucket
+resource "aws_s3_bucket_public_access_block" "public_access1" {
+  bucket                  = aws_s3_bucket.example4.id
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
