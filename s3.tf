@@ -58,7 +58,7 @@ resource "aws_s3_bucket" "example3" {
 # S3 bucket to store DQ1 Data
 resource "aws_s3_bucket" "example4" {
   bucket = "ddsl-dq2"
-  # Prevent accidental deletion of this S3 bucket
+  # Prevent accidental deletion of this S3 bucket  
   lifecycle {
     prevent_destroy = false
   }
@@ -67,6 +67,7 @@ resource "aws_s3_bucket" "example4" {
     Environment = "Dev"
   }
 }
+
 #To create a S3 Bucket Notofication 
 resource "aws_s3_bucket_notification" "bucket_notification" {
   bucket      = aws_s3_bucket.example1.id
@@ -107,6 +108,7 @@ resource "aws_s3_bucket_versioning" "enabled3" {
     status = "Enabled"   
   }
 }
+
 # Enable server-side encryption by default for raw data bucket
 resource "aws_s3_bucket_server_side_encryption_configuration" "default" {
   bucket = aws_s3_bucket.example1.id
