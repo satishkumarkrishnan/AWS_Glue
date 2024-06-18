@@ -163,7 +163,7 @@ resource "aws_s3_bucket_public_access_block" "public_access1" {
   restrict_public_buckets = true
 }
 # Explicitly block all public access to the DQ1 S3 bucket
-resource "aws_s3_bucket_public_access_block" "public_access" {
+resource "aws_s3_bucket_public_access_block" "public_access2" {
   bucket                  = aws_s3_bucket.example3.id
   block_public_acls       = true
   block_public_policy     = true
@@ -172,7 +172,7 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
 }
 
 # Explicitly block all public access to the DQ2 S3 bucket
-resource "aws_s3_bucket_public_access_block" "public_access1" {
+resource "aws_s3_bucket_public_access_block" "public_access3" {
   bucket                  = aws_s3_bucket.example4.id
   block_public_acls       = true
   block_public_policy     = true
