@@ -55,6 +55,18 @@ resource "aws_s3_bucket" "example3" {
     Environment = "Dev"
   }
 }
+# S3 bucket to store DQ1 Data
+resource "aws_s3_bucket" "example4" {
+  bucket = "ddsl-dq2"
+  # Prevent accidental deletion of this S3 bucket
+  lifecycle {
+    prevent_destroy = false
+  }
+   tags = {
+    Name        = "ddsl-dq2"
+    Environment = "Dev"
+  }
+}
 #To create a S3 Bucket Notofication 
 resource "aws_s3_bucket_notification" "bucket_notification" {
   bucket      = aws_s3_bucket.example1.id
@@ -66,23 +78,31 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
   }*/
 }
 
-# Enable versioning so you can see the full revision history of your input files
+# Enable versioning so you can see the full revision history of your MBP files
 resource "aws_s3_bucket_versioning" "enabled" {
   bucket = aws_s3_bucket.example1.id
     versioning_configuration {
     status = "Enabled"   
   }
 }
-# Enable versioning so you can see the full revision history of your processed files
+# Enable versioning so you can see the full revision history of your segrgated files
 resource "aws_s3_bucket_versioning" "enabled1" {
   bucket = aws_s3_bucket.example2.id
     versioning_configuration {
     status = "Enabled"   
   }
 }
-# Enable versioning so you can see the full revision history of your processed files
+# Enable versioning so you can see the full revision history of your DQ1 files
 resource "aws_s3_bucket_versioning" "enabled2" {
   bucket = aws_s3_bucket.example3.id
+    versioning_configuration {
+    status = "Enabled"   
+  }
+}
+
+# Enable versioning so you can see the full revision history of your DQ2 files
+resource "aws_s3_bucket_versioning" "enabled3" {
+  bucket = aws_s3_bucket.example4.id
     versioning_configuration {
     status = "Enabled"   
   }

@@ -20,7 +20,7 @@ resource "aws_glue_job" "example" {
 
 #AWS Glue job for a Py script
 resource "aws_glue_job" "data_quality1" {
-  name = "DDSL_Dataquality_job"
+  name = "DDSL_Dataquality1_job"
   role_arn = aws_iam_role.gluerole.arn
   max_capacity = "1.0"
   glue_version = "4.0"
@@ -30,7 +30,26 @@ resource "aws_glue_job" "data_quality1" {
     python_version = "3"
   }
    default_arguments = {    
-    "--continuous-log-logGroup"          = aws_cloudwatch_log_group.data_quality_log_group.name
+    "--continuous-log-logGroup"          = aws_cloudwatch_log_group.data_quality_log_group1.name
+    "--enable-continuous-cloudwatch-log" = "true"
+    "--enable-continuous-log-filter"     = "true"
+    "--enable-metrics"                   = ""
+  }
+}
+
+#AWS Glue job for a Py script
+resource "aws_glue_job" "data_quality2" {
+  name = "DDSL_Dataquality2_job"
+  role_arn = aws_iam_role.gluerole.arn
+  max_capacity = "1.0"
+  glue_version = "4.0"
+  command {
+    #name            = "pythonshell"
+    script_location = "s3://${aws_s3_bucket.example1.bucket}/dq2.py"
+    python_version = "3"
+  }
+   default_arguments = {    
+    "--continuous-log-logGroup"          = aws_cloudwatch_log_group.data_quality_log_group2.name
     "--enable-continuous-cloudwatch-log" = "true"
     "--enable-continuous-log-filter"     = "true"
     "--enable-metrics"                   = ""
