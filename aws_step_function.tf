@@ -31,8 +31,8 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
                     "Parameters": {
                         "JobName": "${aws_glue_job.data_quality2.name}"
                     },
-                    "End": "Checksum Record Job run"
-                },
+                    "End": "true"
+                }
     }
 }
 EOF
