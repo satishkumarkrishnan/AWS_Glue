@@ -1,5 +1,5 @@
 from pyspark.sql import SparkSession
-from input_dir.pyspark import SQLContext
+from pyspark import SQLContext
 import json
 import boto3
 
