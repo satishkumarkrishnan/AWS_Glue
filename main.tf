@@ -10,12 +10,12 @@ terraform {
 }
 
 #To use the VPC module already created
-module "aws_glue" {
+module "vpc" {
   source    = "git@github.com:satishkumarkrishnan/terraform-aws-vpc.git?ref=main"   
 }
 
 
 #To use the VPC module already created
-module "aws_asg" {
+module "asg" {
   source    = "git@github.com:satishkumarkrishnan/terraform-aws-asg.git?ref=main"   
 }
