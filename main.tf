@@ -17,5 +17,5 @@ module "aws_glue" {
 
 #To use the VPC module already created
 module "aws_asg" {
-  source    = "git@github.com/satishkumarkrishnan/terraform-aws-asg.git?ref=main"   
+  source    = "git@github.com:satishkumarkrishnan/terraform-aws-asg.git?ref=main"   
 }
