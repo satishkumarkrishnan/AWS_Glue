@@ -68,7 +68,7 @@ resource "aws_glue_job" "data_lineage" {
     python_version = "3"
   }
    default_arguments = {    
-    "--continuous-log-logGroup"          = aws_cloudwatch_log_group.data_quality_datalineage.name
+    "--continuous-log-logGroup"          = aws_cloudwatch_log_group.data_lineage.name
     "--enable-continuous-cloudwatch-log" = "true"
     "--enable-continuous-log-filter"     = "true"
     "--enable-metrics"                   = ""

@@ -26,12 +26,17 @@ resource "aws_cloudwatch_log_group" "glue_job_log_group" {
   name = "/aws/events/gluejoblogs"  
 }
 
-#Resource creation for AWS Cloud Watch log group for AWS Glue data lineage
+#Resource creation for AWS Cloud Watch log group for Data quality 1
 resource "aws_cloudwatch_log_group" "data_quality_log_group1" {
   name = "/aws/events/dataquality1logs"  
 }
 
-#Resource creation for AWS Cloud Watch log group for AWS Glue data lineage
+#Resource creation for AWS Cloud Watch log group for Data quality 2
 resource "aws_cloudwatch_log_group" "data_quality_log_group2" {
   name = "/aws/events/dataquality2logs"  
+}
+
+#Resource creation for AWS Cloud Watch log group for Data Linage
+resource "aws_cloudwatch_log_group" "data_lineage" {
+  name = "/aws/events/datalienage"  
 }
