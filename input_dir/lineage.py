@@ -1,25 +1,28 @@
 from pyspark.sql import SparkSession
-from pyspark import SQLContext
+from pyspark import conf
+from awsglue.context import GlueContext
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import col
+from pyspark import SparkContext
 import json
 import boto3
+
+sc =SparkContext.getOrCreate()
+sc.setLogLevel("DEBUG")
 
 spark = SparkSession.builder \
     .appName("OpenLineageExample") \
     .config("spark.jars.packages", "io.openlineage:openlineage-spark_2.12-1.13.1") \
     .config("spark.extraListeners", "io.openlineage.spark.agent.OpenLineageSparkListener") \
     .config('spark.openlineage.transport.type', 'http') \
-    .config('spark.openlineage.transport.url', 'http://localhost:8080') \
+    .config('spark.openlineage.transport.url', 'http://ddsl-alb-543221022.ap-northeast-1.elb.amazonaws.com:8080') \
     .config('spark.openlineage.transport.endpoint', '/api/v1/lineage') \
     .config('spark.openlineage.namespace', 'spark_integration') \
-    .getOrCreate()
-
-spark.sparkContext.setLogLevel("INFO")
-sc = spark.sparkContext
-sqlContext = SQLContext(sc)
+    .getOrCreate()   
 
 # Your Spark job code
-input_path = "C://Users//satishkr//PycharmProjects//pythonProject3//pythonProject//lineage//test.csv"
-output_path = "C://Users/satishkr//PycharmProjects//pythonProject3//pythonProject//lineage//dlineage.json"
+input_path = "s3://ddsl-rawdata-bucket/test.csv"
+output_path = "s3://ddsl-extension-bucket/dlineage"
 
 # Read CSV file
 df = spark.read.csv(input_path, header=True)
@@ -82,22 +85,13 @@ lineage_df = {
 # Convert dictionary to JSON string
 lineage_json = json.dumps(lineage_df, indent=4)
 
-# Write JSON string to a file
-file_path = 'lineage.json'
-with open(file_path, 'w') as file:
-    file.write(lineage_json)
-print(f'Lineage JSON data written to {file_path}')
-
 # Optional: Upload lineage JSON to S3 (commented out)
 # Initialize Glue client
-glue = boto3.client('glue')
+s3 = boto3.client('s3')
 
 # Example S3 location to store lineage information
-s3_bucket = 's3://ddsl-extension-bucket/'
-s3_key = 'lineage.json'
-
-# Upload lineage JSON to S3
-df.write.format('json').save('s3://ddsl-extension-bucket/lineage.json')
+s3_bucket = 'ddsl-extension-bucket'
+s3.put_object( Bucket=s3_bucket, Key='lineage.json', Body=lineage_json.encode('utf-8'))
 
 # Stop Spark session
 spark.stop()
