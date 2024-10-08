@@ -326,3 +326,20 @@ resource "aws_iam_policy_attachment" "AWSGlueServiceRole" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
   roles      = [aws_iam_role.gluerole.name]
 }
+
+#AWS Config - aws config role
+resource "aws_iam_role" "config_role" {
+  name               = "awsconfig-example"
+  assume_role_policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "config.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
+      }
+    ]
+  })
+}
